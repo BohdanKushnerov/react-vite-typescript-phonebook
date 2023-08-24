@@ -1,6 +1,6 @@
-import { styled } from '@mui/material';
+import { styled, Button } from '@mui/material';
 
-export const UserMenuBtn = styled('button')(({ theme }) => ({
+export const UserMenuBtn = styled(Button)(({ theme }) => ({
   padding: 4,
 
   width: 70,
@@ -12,18 +12,15 @@ export const UserMenuBtn = styled('button')(({ theme }) => ({
 
   cursor: 'pointer',
 
-  color: theme.palette.secondaryBtn.main,
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.secondaryBtn.bcgDark
-      : theme.palette.secondaryBtn.bcg,
+  color: theme.palette.primary.contrastText,
+  // backgroundColor:
+  //   theme.palette.mode === 'dark'
+  //     ? theme.palette.secondaryBtn.bcgDark
+  //     : theme.palette.secondaryBtn.bcg,
 
   '&:hover': {
     color: '#ffffff',
-    backgroundColor:
-      theme.palette.mode === 'dark'
-        ? theme.palette.button.hoverDark
-        : theme.palette.button.hover,
+    backgroundColor: theme.palette.action.active,
     boxShadow:
       theme.palette.mode === 'dark'
         ? '1px 1px 6px rgba(255,255,255,.12), 1px 1px 3px rgba(255,255,255,.14), 1px 1px 3px rgba(255,255,255,.2)'

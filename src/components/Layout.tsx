@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
-export const Layout = () => {
+const Layout: React.FC = () => {
   return (
     <div>
       <Header position="sticky" />
@@ -19,3 +19,5 @@ export const Layout = () => {
     </div>
   );
 };
+
+export default Layout;

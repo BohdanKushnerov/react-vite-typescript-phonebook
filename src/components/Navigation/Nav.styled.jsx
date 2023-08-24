@@ -3,23 +3,16 @@ import { styled } from '@mui/material';
 
 export const StyledNavLink = styled(NavLink)(({ theme }) => ({
   textDecoration: 'none',
-  color:
-    theme.palette.mode === 'dark'
-      ? theme.palette.button.main
-      : theme.palette.button.black,
+  color: theme.palette.primary.contrastText,
   fontWeight: 'bold',
   border: '1px solid #3c3f3c',
-
   borderRadius: 6,
 
   padding: 4,
 
   '&.active': {
     color: '#ffffff',
-    backgroundColor:
-      theme.palette.mode === 'dark'
-        ? theme.palette.button.hoverDark
-        : theme.palette.button.hover,
+    backgroundColor: theme.palette.action.active,
   },
   '&:hover': {
     boxShadow:
