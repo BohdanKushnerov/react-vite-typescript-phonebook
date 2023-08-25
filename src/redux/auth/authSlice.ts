@@ -24,7 +24,6 @@ const handleAuthFulfilled = (
   state: AuthState,
   action: PayloadAction<IUserDataLoginAndRegister>
 ) => {
-  console.log('handleAuthFulfilled', action);
   state.user = action.payload.user;
   state.token = action.payload.token;
   state.isLoggedIn = true;
@@ -46,8 +45,6 @@ const handleRefreshUserFulfilled = (
   state: AuthState,
   action: PayloadAction<IUserDataRefreshUser>
 ) => {
-  console.log('handleRefreshUserFulfilled', action);
-
   state.user = action.payload;
   state.isLoggedIn = true;
   state.isRefreshing = false;
@@ -58,7 +55,6 @@ const handleRefreshUserRejected = (
   state: AuthState,
   action: ReturnType<typeof refreshUser.rejected>
 ) => {
-  console.log('handleRefreshUserRejected', action);
   state.isRefreshing = false;
 
   if (action.payload) {
@@ -73,9 +69,7 @@ const handleAuthRejected = (
     | ReturnType<typeof logIn.rejected>
     | ReturnType<typeof logOut.rejected>
 ) => {
-  console.log('handleAuthRejected', action);
   if (action.payload) {
-    console.log('action.payload', action.payload);
     state.error = action.payload.errorMessage;
   }
 };

@@ -7,11 +7,12 @@ import Filter from '@components/Filter';
 import ContactList from '@components/Contacts/ContactList';
 import ScrollTopButton from '@components/ScrollTop';
 import { PageContainer } from '@assets/styles/common';
+import { AppDispatch } from '@redux/store';
 
 export default function Phonebook() {
   const { error } = useSelector(getContacts);
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     const promise = dispatch(fetchContacts());

@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Middleware } from 'redux';
 
-export const handleAddContactFulfilled = store => next => action => {
+export const handleAddContactFulfilled: Middleware = () => next => action => {
   if (action.type === 'auth/login/fulfilled') {
     toast.info(
       <span>

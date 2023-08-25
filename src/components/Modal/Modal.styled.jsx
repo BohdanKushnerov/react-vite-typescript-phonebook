@@ -10,9 +10,6 @@ export const Overlay = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor:
-    theme.palette.mode === 'dark'
-      ? theme.palette.colors.dark
-      : theme.palette.colors.white,
+  backgroundColor: theme.palette.background.default,
   zIndex: 1200,
 }));

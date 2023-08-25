@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '@redux/auth/authOperations';
 import { Form, MainButton } from '@assets/styles/common';
+import { AppDispatch } from '@redux/store';
 
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     switch (name) {
@@ -29,9 +30,9 @@ export default function Register() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(register({ credentials: { name, email, password } }));
   };
 
   return (

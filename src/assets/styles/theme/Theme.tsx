@@ -6,43 +6,6 @@ export const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 });
 
-// const theme = React.useMemo(
-//   () =>
-//     createTheme({
-//       palette: {
-//         mode,
-//         primary: {
-//           main: '#70bd7c',
-//           dark: '#121212',
-//           light: '#ffffff',
-//           contrastText: '#000000',
-//         },
-//         secondary: {
-//           main: '#3c3f3c',
-//           dark: '#000000',
-//           light: '#f5f5f5',
-//           contrastText: '#FFFFFF',
-//         },
-//         action: {
-//           active: '#304930',
-//           hover: '#4d8b51',
-//         },
-//         background: {
-//           default: '#38583a',
-//           paper: '#3c3f3c',
-//         },
-//         // button: {
-//         //   hoverDark: '#8a8a8a',
-//         // },
-//         // secondaryBtn: {
-//         //   bcgDark: '#b6b0b0',
-//         //   hoverDark: '#3c3f3c',
-//         // },
-//       },
-//     }),
-//   [mode]
-// );
-
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
@@ -59,6 +22,9 @@ const lightTheme = createTheme({
     // text: {
     //   primary: '#ddf507',
     // },
+    background: {
+      default: '#ffffff',
+    },
   },
 });
 
@@ -76,6 +42,9 @@ const darkTheme = createTheme({
     // text: {
     //   primary: '#d10023',
     // },
+    background: {
+      default: '#121212',
+    },
   },
 });
 

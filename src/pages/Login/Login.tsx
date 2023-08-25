@@ -3,14 +3,15 @@ import { useDispatch } from 'react-redux';
 import { logIn } from '@redux/auth/authOperations';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
+import { AppDispatch } from '@redux/store';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     switch (name) {
@@ -25,10 +26,10 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    dispatch(logIn({ email, password }));
+    dispatch(logIn({ credentials: { email, password } }));
   };
 
   return (

@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '@redux/auth/authOperations';
 import { getAuthName } from '@redux/auth/authSelectors';
 import { UserMenuBtn } from './UserMenu.styled';
+import { AppDispatch } from '@redux/store';
 
 const UserMenu = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const name = useSelector(getAuthName);
 

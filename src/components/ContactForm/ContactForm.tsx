@@ -2,14 +2,28 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts, changeContact } from '@redux/contacts/operations';
 import { getContacts } from '@redux/contacts/selectors';
-import PropTypes from 'prop-types';
 import { Form } from '@assets/styles/common';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { MainButton } from '@assets/styles/common';
 import { toast } from 'react-toastify';
+import { AppDispatch } from '@redux/store';
 
-const ContactForm = ({
+type ContactFormProps = {
+  name?: string;
+  number?: string;
+  isChangeContact?: boolean;
+  id?: string;
+  onClose?: () => void;
+};
+
+type Contact = {
+  id: string;
+  name: string;
+  number: string;
+};
+
+const ContactForm: React.FC<ContactFormProps> = ({
   name: initialName = '',
   number: initialNumber = '',
   isChangeContact = false,
@@ -19,13 +33,13 @@ const ContactForm = ({
   const [name, setName] = useState(initialName);
   const [number, setNumber] = useState(initialNumber);
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { items } = useSelector(getContacts);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const isIncludes = items.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+      (contact: Contact) => contact.name.toLowerCase() === name.toLowerCase()
     );
 
     if (isChangeContact) {
@@ -45,7 +59,7 @@ const ContactForm = ({
     }
   };
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
     switch (name) {
@@ -116,14 +130,6 @@ const ContactForm = ({
       </MainButton>
     </Form>
   );
-};
-
-ContactForm.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.string,
-  isChangeContact: PropTypes.bool,
-  id: PropTypes.string,
-  onClose: PropTypes.func,
 };
 
 export default ContactForm;

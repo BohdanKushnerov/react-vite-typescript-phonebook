@@ -1,15 +1,21 @@
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
-import { useCloseModal } from '@hooks';
+import { useCloseModal } from '@hooks/useCloseModal';
 import ContactForm from '@components/ContactForm';
 import { Overlay } from './Modal.styled';
 
-const modalRoot = document.querySelector('#modal-root');
+const modalRoot = document.querySelector('#modal-root')!;
 
-const Modal = ({ id, name, number, onClose }) => {
+type ModalProps = {
+  id: string;
+  name: string;
+  number: string;
+  onClose: () => void;
+};
+
+const Modal: React.FC<ModalProps> = ({ id, name, number, onClose }) => {
   useCloseModal(onClose);
 
-  const handleBackdropClick = e => {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -28,13 +34,6 @@ const Modal = ({ id, name, number, onClose }) => {
     </Overlay>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

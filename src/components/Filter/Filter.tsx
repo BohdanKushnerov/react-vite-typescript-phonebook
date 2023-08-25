@@ -3,12 +3,13 @@ import { TextField } from '@mui/material';
 import { getFilter } from '@redux/contacts/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from '@redux/filter/filterSlice';
+import { AppDispatch } from '@redux/store';
 
-const Filter = React.memo(() => {
+const Filter: React.FC = React.memo(() => {
   const filterState = useSelector(getFilter);
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-  const handleChangeFilter = e => {
+  const handleChangeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     dispatch(changeFilter(value));
   };

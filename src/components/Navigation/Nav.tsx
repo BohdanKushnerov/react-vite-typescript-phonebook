@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { getisLoggedInStatus } from '@redux/auth/authSelectors';
 import { StyledNavLink } from './Nav.styled';
 
-const Nav = () => {
+const Nav: React.FC = () => {
   const isLoggedIn = useSelector(getisLoggedInStatus);
 
   return (

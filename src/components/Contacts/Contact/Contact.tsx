@@ -1,7 +1,5 @@
-import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContacts } from '@redux/contacts/operations';
-import PropTypes from 'prop-types';
 import { ContactBtn } from '@assets/styles/common';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
@@ -11,21 +9,28 @@ import Avatar from '@mui/material/Avatar';
 import { useState } from 'react';
 import Modal from '@components/Modal';
 import { getContacts } from '@redux/contacts/selectors';
+import { AppDispatch } from '@redux/store';
 
-const Contact = ({ name, number, id }) => {
+type ContactProps = {
+  name: string;
+  number: string;
+  id: string;
+};
+
+const Contact: React.FC<ContactProps> = ({ name, number, id }) => {
   const [showModal, setShowModal] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const { isLoading } = useSelector(getContacts);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (id: string) => {
     setIsButtonDisabled(true);
-    await dispatch(deleteContacts(id));
+    await dispatch(deleteContacts({ id }));
     setIsButtonDisabled(false);
   };
 
@@ -73,7 +78,7 @@ const Contact = ({ name, number, id }) => {
         variant="contained"
         size="small"
         disabled={isLoading && isButtonDisabled}
-        onClick={handleDelete}
+        onClick={() => handleDelete(id)}
       >
         Delete
       </ContactBtn>
@@ -82,12 +87,6 @@ const Contact = ({ name, number, id }) => {
       )}
     </ListItem>
   );
-};
-
-Contact.propTypes = {
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
 };
 
 export default Contact;

@@ -1,1 +1,0 @@
-export { useCloseModal } from './useCloseModal';
