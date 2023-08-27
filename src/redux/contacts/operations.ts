@@ -1,13 +1,9 @@
-import IMyKnownError from '@interfaces/auth/IMyKnownError';
+import IMyKnownError from '@interfaces/redux/IMyKnownError';
+import IContact from '@interfaces/redux/contacts/IContact';
+import { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
+import IDeleteContactId from '@interfaces/redux/contacts/IDeleteContactId';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-interface IContact {
-  id: string;
-  name: string;
-  number: string;
-}
-interface IContactWithoutId extends Omit<IContact, 'id'> {}
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
@@ -18,18 +14,15 @@ export const fetchContacts = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue({
-        errorMessage:
-          error instanceof AxiosError
-            ? error.message
-            : 'An unknown error occurred',
-      });
+      if (error instanceof AxiosError) {
+        return thunkAPI.rejectWithValue({ errorMessage: error.message });
+      }
     }
   }
 );
 
 export const addContacts = createAsyncThunk<
-  IContactWithoutId,
+  IContact,
   IContactWithoutId,
   { rejectValue: IMyKnownError }
 >('contacts/addContacts', async ({ name, number }, thunkAPI) => {
@@ -37,12 +30,9 @@ export const addContacts = createAsyncThunk<
     const response = await axios.post(`/contacts`, { name, number });
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });
 
@@ -55,33 +45,23 @@ export const changeContact = createAsyncThunk<
     const response = await axios.patch(`/contacts/${id}`, { name, number });
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });
 
 export const deleteContacts = createAsyncThunk<
-  {
-    id: string;
-    name: string;
-    number: string;
-  },
-  { id: string },
+  IContact,
+  IDeleteContactId,
   { rejectValue: IMyKnownError }
->('contacts/deleteContacts', async (id, thunkAPI) => {
+>('contacts/deleteContacts', async ({ id }, thunkAPI) => {
   try {
     const response = await axios.delete(`/contacts/${id}`);
     return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });

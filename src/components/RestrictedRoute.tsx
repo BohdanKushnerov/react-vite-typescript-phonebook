@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getisLoggedInStatus } from '@redux/auth/authSelectors';
+import { getisLoggedInStatus } from '@redux/auth/selectors';
 
 interface IRestrictedRouteProps {
   component: React.ComponentType;

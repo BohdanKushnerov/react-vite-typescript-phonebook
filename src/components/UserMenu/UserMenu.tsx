@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '@redux/auth/authOperations';
-import { getAuthName } from '@redux/auth/authSelectors';
+import { logOut } from '@redux/auth/operations';
+import { getAuthName } from '@redux/auth/selectors';
 import { UserMenuBtn } from './UserMenu.styled';
 import { AppDispatch } from '@redux/store';
 

@@ -1,6 +1,6 @@
 import { Toolbar } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { getisLoggedInStatus } from '@redux/auth/authSelectors';
+import { getisLoggedInStatus } from '@redux/auth/selectors';
 import { StyledNavLink } from './Nav.styled';
 
 const Nav: React.FC = () => {

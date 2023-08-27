@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import {
   getisLoggedInStatus,
   getisRefreshingStatus,
-} from '@redux/auth/authSelectors';
+} from '@redux/auth/selectors';
 
 interface IPrivateRouteProps {
   component: React.ComponentType;
