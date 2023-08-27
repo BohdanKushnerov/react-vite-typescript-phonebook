@@ -1,9 +1,9 @@
-import ILoginCredentials from '@interfaces/auth/ILoginCredentials';
-import IMyKnownError from '@interfaces/auth/IMyKnownError';
-import IRegisterCredentials from '@interfaces/auth/IRegisterCredentials';
-import IUserDataLogOut from '@interfaces/auth/IUserDataLogOut';
-import IUserDataLoginAndRegister from '@interfaces/auth/IUserDataLoginAndRegister';
-import IUserDataRefreshUser from '@interfaces/auth/IUserDataRefreshUser';
+import ILoginCredentials from '@interfaces/redux/auth/ILoginCredentials';
+import IMyKnownError from '@interfaces/redux/IMyKnownError';
+import IRegisterCredentials from '@interfaces/redux/auth/IRegisterCredentials';
+import IUserDataLogOut from '@interfaces/redux/auth/IUserDataLogOut';
+import IUserDataLoginAndRegister from '@interfaces/redux/auth/IUserDataLoginAndRegister';
+import IUserDataRefreshUser from '@interfaces/redux/auth/IUserDataRefreshUser';
 import { RootState } from '@redux/store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
@@ -19,41 +19,35 @@ const unSetToken = (): void => {
 
 export const register = createAsyncThunk<
   IUserDataLoginAndRegister,
-  { credentials: IRegisterCredentials },
+  IRegisterCredentials,
   { rejectValue: IMyKnownError }
 >('auth/register', async (credentials, thunkAPI) => {
   try {
     const response = await axios.post('/users/signup', credentials);
 
     setToken(response.data.token);
-    return response.data as IUserDataLoginAndRegister;
+    return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });
 
 export const logIn = createAsyncThunk<
   IUserDataLoginAndRegister,
-  { credentials: ILoginCredentials },
+  ILoginCredentials,
   { rejectValue: IMyKnownError }
 >('auth/login', async (credentials, thunkAPI) => {
   try {
     const response = await axios.post('/users/login', credentials);
 
     setToken(response.data.token);
-    return response.data as IUserDataLoginAndRegister;
+    return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });
 
@@ -66,10 +60,9 @@ export const logOut = createAsyncThunk<
     const response = await axios.post('/users/logout');
 
     unSetToken();
-    return response.data as IUserDataLogOut;
+    return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error);
       return thunkAPI.rejectWithValue({ errorMessage: error.message });
     }
   }
@@ -95,13 +88,10 @@ export const refreshUser = createAsyncThunk<
       signal: thunkAPI.signal,
     });
 
-    return response.data as IUserDataRefreshUser;
+    return response.data;
   } catch (error) {
-    return thunkAPI.rejectWithValue({
-      errorMessage:
-        error instanceof AxiosError
-          ? error.message
-          : 'An unknown error occurred',
-    });
+    if (error instanceof AxiosError) {
+      return thunkAPI.rejectWithValue({ errorMessage: error.message });
+    }
   }
 });

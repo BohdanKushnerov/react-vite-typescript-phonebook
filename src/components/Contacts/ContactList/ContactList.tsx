@@ -25,8 +25,6 @@ const ContactList: React.FC = () => {
   const filterState = useSelector(getFilter);
   const { items, isLoading } = useSelector(getContacts);
 
-  console.log(items);
-
   const visibleContacts = getVisibleContacts(items, filterState);
 
   return (

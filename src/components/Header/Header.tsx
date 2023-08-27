@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { getisLoggedInStatus } from '@redux/auth/authSelectors';
+import { getisLoggedInStatus } from '@redux/auth/selectors';
 import UserMenu from '@components/UserMenu';
 import { AuthNav, Nav } from '@components/Navigation';
 import AppBar from '@mui/material/AppBar';

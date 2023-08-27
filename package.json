@@ -2,6 +2,7 @@
   "name": "vite-typescript-template",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://bohdankushnerov.github.io/react-vite-typescript-phonebook",
   "type": "module",
   "scripts": {
     "dev": "vite",

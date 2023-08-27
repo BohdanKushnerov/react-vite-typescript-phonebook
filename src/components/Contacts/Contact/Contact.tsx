@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContacts } from '@redux/contacts/operations';
-import { ContactBtn } from '@assets/styles/common';
+import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -64,7 +64,7 @@ const Contact: React.FC<ContactProps> = ({ name, number, id }) => {
         <Typography variant="h6">{name}</Typography>
         <p>{number}</p>
       </ListItemText>
-      <ContactBtn
+      <Button
         type="button"
         variant="contained"
         size="small"
@@ -72,8 +72,8 @@ const Contact: React.FC<ContactProps> = ({ name, number, id }) => {
         onClick={toggleModal}
       >
         Edit
-      </ContactBtn>
-      <ContactBtn
+      </Button>
+      <Button
         type="button"
         variant="contained"
         size="small"
@@ -81,7 +81,7 @@ const Contact: React.FC<ContactProps> = ({ name, number, id }) => {
         onClick={() => handleDelete(id)}
       >
         Delete
-      </ContactBtn>
+      </Button>
       {showModal && (
         <Modal id={id} name={name} number={number} onClose={toggleModal} />
       )}

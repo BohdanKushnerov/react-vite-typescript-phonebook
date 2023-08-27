@@ -1,1 +1,5 @@
-export const filterInitialState = { filter: '' };
+interface IFilterState {
+  filter: string;
+}
+
+export const filterInitialState: IFilterState = { filter: '' };

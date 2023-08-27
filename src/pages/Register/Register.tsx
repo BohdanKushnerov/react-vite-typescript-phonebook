@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '@redux/auth/authOperations';
+import { register } from '@redux/auth/operations';
 import { Form, MainButton } from '@assets/styles/common';
 import { AppDispatch } from '@redux/store';
 
@@ -32,7 +32,7 @@ export default function Register() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(register({ credentials: { name, email, password } }));
+    dispatch(register({ name, email, password }));
   };
 
   return (

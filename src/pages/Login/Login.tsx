@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logIn } from '@redux/auth/authOperations';
+import { logIn } from '@redux/auth/operations';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
 import { AppDispatch } from '@redux/store';
@@ -29,7 +29,7 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    dispatch(logIn({ credentials: { email, password } }));
+    dispatch(logIn({ email, password }));
   };
 
   return (

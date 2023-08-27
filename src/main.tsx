@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ToggleColorMode>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter basename="react-vite-typescript-phonebook">
+          <BrowserRouter basename="/react-vite-typescript-phonebook">
             <GlobalStyles />
             <App />
             <ToastContainer autoClose={3000} position="top-right" />
