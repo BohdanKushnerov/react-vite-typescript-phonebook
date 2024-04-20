@@ -8,22 +8,10 @@ import TextField from '@mui/material/TextField';
 import { MainButton } from '@assets/styles/common';
 import { toast } from 'react-toastify';
 import { AppDispatch } from '@redux/store';
+import { Contact } from '@myTypes/Contact';
+import { IContactFormProps } from '@interfaces/IContactFormProps';
 
-type ContactFormProps = {
-  name?: string;
-  number?: string;
-  isChangeContact?: boolean;
-  id?: string;
-  onClose?: () => void;
-};
-
-type Contact = {
-  id: string;
-  name: string;
-  number: string;
-};
-
-const ContactForm: React.FC<ContactFormProps> = ({
+const ContactForm: React.FC<IContactFormProps> = ({
   name: initialName = '',
   number: initialNumber = '',
   isChangeContact = false,

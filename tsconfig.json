@@ -8,7 +8,8 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
-      "@interfaces/*": ["interfaces/*"]
+      "@interfaces/*": ["interfaces/*"],
+      "@myTypes/*": ["myTypes/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

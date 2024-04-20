@@ -11,12 +11,9 @@ import { useTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from '../../assets/styles/theme';
+import { IHeaderProps } from '@interfaces/IHeaderProps';
 
-type HeaderProps = {
-  position: 'sticky' | 'fixed' | 'relative';
-};
-
-const Header: React.FC<HeaderProps> = ({ position }) => {
+const Header: React.FC<IHeaderProps> = ({ position }) => {
   const isLoggedIn = useSelector(getisLoggedInStatus);
 
   const theme = useTheme();

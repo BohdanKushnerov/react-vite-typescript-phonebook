@@ -10,14 +10,9 @@ import { useState } from 'react';
 import Modal from '@components/Modal';
 import { getContacts } from '@redux/contacts/selectors';
 import { AppDispatch } from '@redux/store';
+import { IContactProps } from '@interfaces/IContactProps';
 
-type ContactProps = {
-  name: string;
-  number: string;
-  id: string;
-};
-
-const Contact: React.FC<ContactProps> = ({ name, number, id }) => {
+const Contact: React.FC<IContactProps> = ({ name, number, id }) => {
   const [showModal, setShowModal] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 

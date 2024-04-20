@@ -1,25 +1,9 @@
+import { useSelector } from 'react-redux';
+
 import Contact from '../Contact';
 import { ContactMUIList } from './ContactList.styled';
 import { getContacts, getFilter } from '@redux/contacts/selectors';
-import { useSelector } from 'react-redux';
-
-type Contact = {
-  id: string;
-  name: string;
-  number: string;
-};
-
-type ContactsItems = Contact[];
-
-type FilterValue = string;
-
-const getVisibleContacts = (
-  items: ContactsItems,
-  filterState: FilterValue
-): ContactsItems =>
-  items.filter(({ name }) =>
-    name.toLowerCase().includes(filterState.toLowerCase())
-  );
+import { getVisibleContacts } from '@utils/getVisibleContacts';
 
 const ContactList: React.FC = () => {
   const filterState = useSelector(getFilter);
