@@ -223,4 +223,4 @@ Error generating stack: `+i.message+`
         padding: 0;
         list-style: none;
       }
-    `});Bc.createRoot(document.getElementById("root")).render(E.jsx(J.StrictMode,{children:E.jsx(C4,{children:E.jsx(lE,{store:Ux,children:E.jsx(U0,{loading:null,persistor:BN,children:E.jsxs(cC,{basename:"react-vite-typescript-phonebook",children:[E.jsx(UN,{}),E.jsx(tN,{}),E.jsx(uf,{autoClose:3e3,position:"top-right"})]})})})})}));
+    `});Bc.createRoot(document.getElementById("root")).render(E.jsx(J.StrictMode,{children:E.jsx(C4,{children:E.jsx(lE,{store:Ux,children:E.jsx(U0,{loading:null,persistor:BN,children:E.jsxs(cC,{basename:"/react-vite-typescript-phonebook",children:[E.jsx(UN,{}),E.jsx(tN,{}),E.jsx(uf,{autoClose:3e3,position:"top-right"})]})})})})}));
