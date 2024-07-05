@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
+import { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 
-const Layout: React.FC = () => {
+const Layout: FC = () => {
   return (
     <div>
       <Header position="sticky" />

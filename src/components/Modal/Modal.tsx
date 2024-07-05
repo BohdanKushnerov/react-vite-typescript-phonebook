@@ -2,14 +2,21 @@ import { createPortal } from 'react-dom';
 import { useCloseModal } from '@hooks/useCloseModal';
 import ContactForm from '@components/ContactForm';
 import { Overlay } from './Modal.styled';
-import { IModalProps } from '@interfaces/IModalProps';
+import { FC, MouseEvent } from 'react';
+
+interface IModalProps {
+  id: string;
+  name: string;
+  number: string;
+  onClose: () => void;
+}
 
 const modalRoot = document.querySelector('#modal-root')!;
 
-const Modal: React.FC<IModalProps> = ({ id, name, number, onClose }) => {
+const Modal: FC<IModalProps> = ({ id, name, number, onClose }) => {
   useCloseModal(onClose);
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleBackdropClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }

@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { FC, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { getisLoggedInStatus } from '@redux/auth/selectors';
+
 import UserMenu from '@components/UserMenu';
 import { AuthNav, Nav } from '@components/Navigation';
+import { getIsLoggedInStatus } from '@redux/auth/selectors';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,14 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { ColorModeContext } from '../../assets/styles/theme';
-import { IHeaderProps } from '@interfaces/IHeaderProps';
+import ColorMode from '@assets/styles/theme';
 
-const Header: React.FC<IHeaderProps> = ({ position }) => {
-  const isLoggedIn = useSelector(getisLoggedInStatus);
+interface IHeaderProps {
+  position: 'sticky' | 'fixed' | 'relative';
+}
+
+const Header: FC<IHeaderProps> = ({ position }) => {
+  const isLoggedIn = useSelector(getIsLoggedInStatus);
 
   const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
+  const colorMode = useContext(ColorMode.ColorModeContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

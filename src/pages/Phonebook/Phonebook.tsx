@@ -1,15 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '@redux/contacts/operations';
-import { getContacts } from '@redux/contacts/selectors';
+
 import ContactForm from '@components/ContactForm';
 import Filter from '@components/Filter';
 import ContactList from '@components/Contacts/ContactList';
 import ScrollTopButton from '@components/ScrollTop';
-import { PageContainer } from '@assets/styles/common';
 import { AppDispatch } from '@redux/store';
+import { fetchContacts } from '@redux/contacts/operations';
+import { getContacts } from '@redux/contacts/selectors';
+import { PageContainer } from '@assets/styles/common';
 
-export default function Phonebook() {
+const Phonebook = () => {
   const { error } = useSelector(getContacts);
 
   const dispatch: AppDispatch = useDispatch();
@@ -33,4 +34,6 @@ export default function Phonebook() {
       <ScrollTopButton />
     </PageContainer>
   );
-}
+};
+
+export default Phonebook;

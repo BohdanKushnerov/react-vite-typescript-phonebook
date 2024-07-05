@@ -1,6 +1,6 @@
-import IContact from './IContact';
+import { IContact } from './IContact';
 
-export default interface IContactInitialState {
+export interface IContactInitialState {
   items: IContact[];
   isLoading: boolean;
   error: string | null;

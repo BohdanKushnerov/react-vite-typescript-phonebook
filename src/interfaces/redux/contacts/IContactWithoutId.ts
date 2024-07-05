@@ -1,3 +1,3 @@
-import IContact from './IContact';
+import { IContact } from './IContact';
 
 export interface IContactWithoutId extends Omit<IContact, 'id'> {}

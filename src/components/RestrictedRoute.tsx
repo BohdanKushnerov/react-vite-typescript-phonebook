@@ -1,18 +1,18 @@
+import { ComponentType, FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { getisLoggedInStatus } from '@redux/auth/selectors';
+import { getIsLoggedInStatus } from '@redux/auth/selectors';
 
 interface IRestrictedRouteProps {
-  component: React.ComponentType;
+  component: ComponentType;
   redirectTo?: string;
 }
 
-export const RestrictedRoute: React.FC<IRestrictedRouteProps> = ({
+export const RestrictedRoute: FC<IRestrictedRouteProps> = ({
   component: Component,
   redirectTo = '/',
 }) => {
-  const isLoggedIn = useSelector(getisLoggedInStatus);
+  const isLoggedIn = useSelector(getIsLoggedInStatus);
 
-  // return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
   return isLoggedIn ? <Navigate to={redirectTo} /> : <Component />;
 };

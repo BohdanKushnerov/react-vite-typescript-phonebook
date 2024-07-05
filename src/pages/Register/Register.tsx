@@ -1,18 +1,19 @@
-import { TextField } from '@mui/material';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { register } from '@redux/auth/operations';
-import { Form, MainButton } from '@assets/styles/common';
-import { AppDispatch } from '@redux/store';
 
-export default function Register() {
+import { AppDispatch } from '@redux/store';
+import { register } from '@redux/auth/operations';
+import { TextField } from '@mui/material';
+import { Form, MainButton } from '@assets/styles/common';
+
+const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch: AppDispatch = useDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     switch (name) {
@@ -30,7 +31,7 @@ export default function Register() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(register({ name, email, password }));
   };
@@ -72,4 +73,6 @@ export default function Register() {
       </MainButton>
     </Form>
   );
-}
+};
+
+export default Register;

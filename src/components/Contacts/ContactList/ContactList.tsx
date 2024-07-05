@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 import Contact from '../Contact';
@@ -5,7 +6,7 @@ import { ContactMUIList } from './ContactList.styled';
 import { getContacts, getFilter } from '@redux/contacts/selectors';
 import { getVisibleContacts } from '@utils/getVisibleContacts';
 
-const ContactList: React.FC = () => {
+const ContactList: FC = () => {
   const filterState = useSelector(getFilter);
   const { items, isLoading } = useSelector(getContacts);
 

@@ -1,10 +1,6 @@
-import { ContactsItems } from '@myTypes/ContactsItems';
-import { FilterValue } from '@myTypes/FilterValue';
+import { Contact } from '@myTypes/Contact';
 
-export const getVisibleContacts = (
-  items: ContactsItems,
-  filterState: FilterValue
-): ContactsItems =>
+export const getVisibleContacts = (items: Contact[], filterState: string) =>
   items.filter(({ name }) =>
     name.toLowerCase().includes(filterState.toLowerCase())
   );

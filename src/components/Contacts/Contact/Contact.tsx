@@ -1,18 +1,23 @@
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Modal from '@components/Modal';
+import { AppDispatch } from '@redux/store';
 import { deleteContacts } from '@redux/contacts/operations';
+import { getContacts } from '@redux/contacts/selectors';
 import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import { useState } from 'react';
-import Modal from '@components/Modal';
-import { getContacts } from '@redux/contacts/selectors';
-import { AppDispatch } from '@redux/store';
-import { IContactProps } from '@interfaces/IContactProps';
 
-const Contact: React.FC<IContactProps> = ({ name, number, id }) => {
+interface IContactProps {
+  name: string;
+  number: string;
+  id: string;
+}
+
+const Contact: FC<IContactProps> = ({ name, number, id }) => {
   const [showModal, setShowModal] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 

@@ -1,9 +1,10 @@
-import IMyKnownError from '@interfaces/redux/IMyKnownError';
-import IContact from '@interfaces/redux/contacts/IContact';
-import { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
-import IDeleteContactId from '@interfaces/redux/contacts/IDeleteContactId';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
+import { IContact } from '@interfaces/redux/contacts/IContact';
+import { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
+import { IDeleteContactId } from '@interfaces/redux/contacts/IDeleteContactId';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',

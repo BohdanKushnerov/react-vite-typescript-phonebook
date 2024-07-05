@@ -1,3 +1,3 @@
-export default interface IDeleteContactId {
+export interface IDeleteContactId {
   id: string;
 }

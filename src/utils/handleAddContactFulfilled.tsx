@@ -1,6 +1,6 @@
+import { Middleware } from 'redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Middleware } from 'redux';
 
 export const handleAddContactFulfilled: Middleware = () => next => action => {
   if (action.type === 'auth/login/fulfilled') {

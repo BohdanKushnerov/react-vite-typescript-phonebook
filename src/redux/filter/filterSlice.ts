@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { filterInitialState } from './initialState';
 
 const filterSlice = createSlice({

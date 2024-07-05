@@ -1,22 +1,23 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { refreshUser } from '@redux/auth/operations';
-import { getisRefreshingStatus } from '@redux/auth/selectors';
+
 import Layout from './Layout';
-import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 import Phonebook from '@pages/Phonebook';
-import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Register from '@pages/Register';
+import Home from '@pages/Home';
 import ErrorPage from '@pages/ErrorPage';
+import { refreshUser } from '@redux/auth/operations';
+import { getIsRefreshingStatus } from '@redux/auth/selectors';
 import { AppDispatch } from '@redux/store';
 
-const App: React.FC = () => {
+const App: FC = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const isRefreshing = useSelector(getisRefreshingStatus);
+  const isRefreshing = useSelector(getIsRefreshingStatus);
 
   useEffect(() => {
     const promise = dispatch(refreshUser());

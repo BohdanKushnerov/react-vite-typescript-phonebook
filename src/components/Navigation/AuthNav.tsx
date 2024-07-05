@@ -1,7 +1,9 @@
-import { Toolbar } from '@mui/material';
-import { StyledNavLink } from '@components/Navigation/Nav.styled';
+import { FC } from 'react';
 
-const AuthNav: React.FC = () => {
+import { StyledNavLink } from '@components/Navigation/Nav.styled';
+import { Toolbar } from '@mui/material';
+
+const AuthNav: FC = () => {
   return (
     <Toolbar
       style={{

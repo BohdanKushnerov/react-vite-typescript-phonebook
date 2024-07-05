@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import { AppDispatch } from '@redux/store';
 import { logIn } from '@redux/auth/operations';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
-import { AppDispatch } from '@redux/store';
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch: AppDispatch = useDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoginInputsChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     switch (name) {
@@ -26,7 +27,7 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     dispatch(logIn({ email, password }));
@@ -44,7 +45,7 @@ export default function Login() {
           type="email"
           name="email"
           value={email}
-          onChange={handleChange}
+          onChange={handleLoginInputsChange}
         />
         <TextField
           fullWidth
@@ -53,7 +54,7 @@ export default function Login() {
           type="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          onChange={handleLoginInputsChange}
         />
         <MainButton variant="contained" type="submit">
           Log In
@@ -61,4 +62,6 @@ export default function Login() {
       </Form>
     </>
   );
-}
+};
+
+export default Login;

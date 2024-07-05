@@ -1,4 +1,4 @@
-export default interface IUserDataLoginAndRegister {
+export interface IUserDataLoginAndRegister {
   token: string;
   user: {
     name: string;

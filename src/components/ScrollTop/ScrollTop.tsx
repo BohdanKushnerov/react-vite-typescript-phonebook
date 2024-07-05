@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
+
 import Fab from '@mui/material/Fab';
 import NavigationIcon from '@mui/icons-material/Navigation';
 
-const ScrollTopButton = React.memo(() => {
+const ScrollTopButton = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

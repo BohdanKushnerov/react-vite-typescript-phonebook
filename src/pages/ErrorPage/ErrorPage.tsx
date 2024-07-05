@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+
 import { MainButton, PageContainer } from '@assets/styles/common';
 
-export default function ErrorPage() {
+const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -14,4 +15,6 @@ export default function ErrorPage() {
       <MainButton onClick={handleNavigate}>Back to Home page</MainButton>
     </PageContainer>
   );
-}
+};
+
+export default ErrorPage;

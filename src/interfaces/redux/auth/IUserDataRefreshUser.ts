@@ -1,4 +1,4 @@
-export default interface IUserDataRefreshUser {
+export interface IUserDataRefreshUser {
   name: string;
   email: string;
 }

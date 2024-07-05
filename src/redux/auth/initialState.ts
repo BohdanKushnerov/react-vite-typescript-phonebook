@@ -1,4 +1,4 @@
-import IAuthInitialState from '@interfaces/redux/auth/IAuthInitialState';
+import { IAuthInitialState } from '@interfaces/redux/auth/IAuthInitialState';
 
 export const initialState: IAuthInitialState = {
   user: { name: null, email: null },
