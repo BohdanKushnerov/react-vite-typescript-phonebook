@@ -9,6 +9,7 @@ export default defineConfig({
       '@redux': '/src/redux',
       '@assets': '/src/assets',
       '@pages': '/src/pages',
+      '@routes': '/src/routes',
       '@utils': '/src/utils',
       '@hooks': '/src/hooks',
       '@interfaces': '/src/interfaces',

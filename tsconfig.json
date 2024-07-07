@@ -6,6 +6,7 @@
       "@redux/*": ["redux/*"],
       "@assets/*": ["assets/*"],
       "@pages/*": ["pages/*"],
+      "@routes/*": ["routes/*"],
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
       "@interfaces/*": ["interfaces/*"],

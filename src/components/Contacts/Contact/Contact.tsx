@@ -1,9 +1,10 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Modal from '@components/Modal';
 import { AppDispatch } from '@redux/store';
-import { deleteContacts } from '@redux/contacts/operations';
 import { getContacts } from '@redux/contacts/selectors';
+import { deleteContacts } from '@redux/contacts/operations';
 import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
@@ -49,10 +50,7 @@ const Contact: FC<IContactProps> = ({ name, number, id }) => {
       }}
     >
       <ListItemAvatar>
-        <Avatar
-        // alt={`Avatar n°${value + 1}`}
-        // src={`/static/images/avatar/${value + 1}.jpg`}
-        />
+        <Avatar />
       </ListItemAvatar>
       <ListItemText
         sx={{

@@ -2,14 +2,13 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { addContacts, changeContact } from '@redux/contacts/operations';
 import { AppDispatch } from '@redux/store';
 import { getContacts } from '@redux/contacts/selectors';
+import { addContacts, changeContact } from '@redux/contacts/operations';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Contact } from '@myTypes/Contact';
-import { MainButton } from '@assets/styles/common';
-import { Form } from '@assets/styles/common';
+import { Form, MainButton } from '@assets/styles/common';
 
 interface IContactFormProps {
   name?: string;

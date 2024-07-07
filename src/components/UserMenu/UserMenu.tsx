@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '@redux/auth/operations';
-import { getAuthName } from '@redux/auth/selectors';
-import { UserMenuBtn } from './UserMenu.styled';
+
 import { AppDispatch } from '@redux/store';
+import { getAuthName } from '@redux/auth/selectors';
+import { logOut } from '@redux/auth/operations';
+import { UserMenuBtn } from './UserMenu.styled';
 
 const UserMenu = () => {
   const dispatch: AppDispatch = useDispatch();

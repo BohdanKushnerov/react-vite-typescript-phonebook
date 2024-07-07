@@ -13,10 +13,6 @@ export const UserMenuBtn = styled(Button)(({ theme }) => ({
   cursor: 'pointer',
 
   color: theme.palette.primary.contrastText,
-  // backgroundColor:
-  //   theme.palette.mode === 'dark'
-  //     ? theme.palette.secondaryBtn.bcgDark
-  //     : theme.palette.secondaryBtn.bcg,
 
   '&:hover': {
     color: '#ffffff',
