@@ -47,7 +47,7 @@ export const handleAddContactFulfilled: Middleware = () => next => action => {
     action.type === 'auth/login/rejected' ||
     action.type === 'auth/logout/rejected'
   ) {
-    toast.error(<b>{action.payload}</b>);
+    toast.error(<b>{action.payload.errorMessage}</b>);
   }
 
   return next(action);

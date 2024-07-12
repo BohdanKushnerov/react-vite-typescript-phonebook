@@ -21,6 +21,8 @@ const RestrictedRoute: FC<IRestrictedRouteProps> = ({
 
   const shouldRedirect = isLoggedIn && !isRefreshing;
 
+  console.log('RestrictedRoute shouldRedirect', shouldRedirect);
+
   return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
 };
 

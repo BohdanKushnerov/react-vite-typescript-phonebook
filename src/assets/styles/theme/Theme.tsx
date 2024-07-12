@@ -27,8 +27,8 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#3c3f3c',
-      contrastText: '#FFFFFF',
+      main: '#7ab87a',
+      contrastText: '#ffffff',
     },
     action: {
       active: '#8a8a8a',
@@ -46,13 +46,13 @@ type ToggleColorModeProps = {
 export function ToggleColorMode({ children }: ToggleColorModeProps) {
   const [mode, setMode] = useState<PaletteMode>(() => {
     const storedTheme = localStorage.getItem('theme');
-    return storedTheme !== null ? JSON.parse(storedTheme) : 'light';
+    return storedTheme !== null ? storedTheme : 'light';
   });
 
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
   useEffect(() => {
-    window.localStorage.setItem('theme', JSON.stringify(mode));
+    window.localStorage.setItem('theme', mode);
   }, [mode]);
 
   const colorMode = useMemo(
