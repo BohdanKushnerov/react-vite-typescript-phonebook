@@ -1,71 +1,86 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AppDispatch } from '@redux/store';
-import { register } from '@redux/auth/operations';
+import { getAuthError, getIsRefreshingStatus } from '@redux/auth/selectors';
+import { register as registerOperation } from '@redux/auth/operations';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
 
+interface IRegisterForm {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const registerSchema = z.object({
+  name: z.string().min(3, 'Name must be at least 3 characters long'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
+});
+
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitSuccessful, errors },
+  } = useForm<IRegisterForm>({
+    mode: 'onChange',
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+  });
 
   const dispatch: AppDispatch = useDispatch();
+  const authError = useSelector(getAuthError);
+  const isRefreshing = useSelector(getIsRefreshingStatus);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case 'name':
-        return setName(value);
-
-      case 'email':
-        return setEmail(value);
-
-      case 'password':
-        return setPassword(value);
-
-      default:
-        return;
+  useEffect(() => {
+    if (isSubmitSuccessful && !authError && !isRefreshing) {
+      reset();
     }
-  };
+  }, [authError, isRefreshing, isSubmitSuccessful, reset]);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(register({ name, email, password }));
+  const onSubmit: SubmitHandler<IRegisterForm> = data => {
+    const { name, email, password } = data;
+
+    dispatch(registerOperation({ name, email, password }));
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         fullWidth
-        id="register-name-outlined-controlled"
-        label="Username"
+        {...register('name', { required: 'Name is required' })}
+        label="Name"
         type="text"
-        name="name"
-        value={name}
-        onChange={handleChange}
+        error={!!errors.name}
+        helperText={errors.name ? errors.name.message : ''}
       />
 
       <TextField
         fullWidth
-        id="register-email-outlined-controlled"
+        {...register('email', { required: 'Email is required' })}
         label="Email"
         type="email"
-        name="email"
-        value={email}
-        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email ? errors.email.message : ''}
       />
 
       <TextField
         fullWidth
-        id="register-password-outlined-controlled"
+        {...register('password', { required: 'Password is required' })}
         label="Password"
         type="password"
-        name="password"
-        value={password}
-        onChange={handleChange}
+        error={!!errors.password}
+        helperText={errors.password ? errors.password.message : ''}
       />
 
       <MainButton variant="contained" type="submit">

@@ -18,6 +18,9 @@ const PrivateRoute: FC<IPrivateRouteProps> = ({
   const isLoggedIn = useSelector(getIsLoggedInStatus);
   const isRefreshing = useSelector(getIsRefreshingStatus);
 
+  console.log('isLoggedIn', isLoggedIn);
+  console.log('isRefreshing', isRefreshing);
+
   const shouldRedirect = isLoggedIn && !isRefreshing;
 
   return shouldRedirect ? <Component /> : <Navigate to={redirectTo} />;
