@@ -1,12 +1,16 @@
+import type { SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+
 import { z } from 'zod';
 
-import { useFormWithValidation } from '@hooks/useFormWithValidation ';
-import { TextField } from '@mui/material';
-import { Form, MainButton } from '@assets/styles/common';
-import { SubmitHandler } from 'react-hook-form';
-import { AppDispatch } from '@redux/store';
-import { useDispatch } from 'react-redux';
 import { logIn } from '@redux/auth/operations';
+import type { AppDispatch } from '@redux/store';
+
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
+import { TextField } from '@mui/material';
+
+import { Form, MainButton } from '@assets/styles/common';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),

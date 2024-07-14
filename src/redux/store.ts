@@ -1,17 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  persistStore,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistStore,
 } from 'redux-persist';
 
+import { persistedReducer } from './auth/authSlice';
 import { contactsReducer } from './contacts/contactsSlice';
 import { filterReducer } from './filter/filterSlice';
-import { persistedReducer } from './auth/authSlice';
+
 import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
 
 export const store = configureStore({

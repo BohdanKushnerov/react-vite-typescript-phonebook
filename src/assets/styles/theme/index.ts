@@ -1,5 +1,4 @@
-import { ToggleColorMode } from './Theme';
-import { ColorModeContext } from './Theme';
+import { ColorModeContext, ToggleColorMode } from './Theme';
 
 export default {
   ToggleColorMode,

@@ -1,4 +1,4 @@
-import { IContact } from './IContact';
+import type { IContact } from './IContact';
 
 export interface IContactInitialState {
   items: IContact[];

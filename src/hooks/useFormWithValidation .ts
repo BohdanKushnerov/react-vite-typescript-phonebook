@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
-import { useForm, UseFormProps } from 'react-hook-form';
+import type { UseFormProps } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ZodSchema } from 'zod';
+import type { ZodSchema } from 'zod';
 
 import { getAuthError, getIsRefreshingStatus } from '@redux/auth/selectors';
 import {

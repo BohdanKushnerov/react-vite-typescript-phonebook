@@ -1,16 +1,20 @@
-import { FC, useContext } from 'react';
+import type { FC } from 'react';
+import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
-import UserMenu from '@components/UserMenu';
 import { AuthNav, Nav } from '@components/Navigation';
+import UserMenu from '@components/UserMenu';
+
 import { getIsLoggedInStatus } from '@redux/auth/selectors';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import { useTheme } from '@mui/material/styles';
+
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Toolbar from '@mui/material/Toolbar';
+import { useTheme } from '@mui/material/styles';
+
 import ColorMode from '@assets/styles/theme';
 
 interface IHeaderProps {

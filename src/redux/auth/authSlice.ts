@@ -2,8 +2,8 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { logIn, register, logOut, refreshUser } from './operations';
 import { initialState } from './initialState';
+import { logIn, logOut, refreshUser, register } from './operations';
 
 const authSlice = createSlice({
   name: 'auth',

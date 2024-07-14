@@ -1,10 +1,13 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
-import Contact from '../Contact';
-import { getContacts, getFilter } from '@redux/contacts/selectors';
-import { getFilteredContacts } from '@utils/getFilteredContacts';
 import { ContactMUIList } from './ContactList.styled';
+
+import Contact from '../Contact';
+
+import { getContacts, getFilter } from '@redux/contacts/selectors';
+
+import { getFilteredContacts } from '@utils/getFilteredContacts';
 
 const ContactList: FC = () => {
   const filterState = useSelector(getFilter);

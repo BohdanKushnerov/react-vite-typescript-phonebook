@@ -1,4 +1,4 @@
-import { RootState } from '@redux/store';
+import type { RootState } from '@redux/store';
 
 export const getIsLoggedInStatus = (state: RootState) => state.auth.isLoggedIn;
 export const getIsRefreshingStatus = (state: RootState) =>

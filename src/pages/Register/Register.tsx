@@ -1,12 +1,16 @@
+import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { SubmitHandler } from 'react-hook-form';
+
 import { z } from 'zod';
 
-import { AppDispatch } from '@redux/store';
 import { register as registerOperation } from '@redux/auth/operations';
-import { TextField } from '@mui/material';
-import { Form, MainButton } from '@assets/styles/common';
+import type { AppDispatch } from '@redux/store';
+
 import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
+import { TextField } from '@mui/material';
+
+import { Form, MainButton } from '@assets/styles/common';
 
 const registerSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),

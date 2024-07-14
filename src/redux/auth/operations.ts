@@ -1,14 +1,20 @@
-import axios, { AxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
-import { RootState } from '@redux/store';
-import { IUserDataLoginAndRegister } from '@interfaces/redux/auth/IUserDataLoginAndRegister';
-import { IUserDataRefreshUser } from '@interfaces/redux/auth/IUserDataRefreshUser';
-import { IRegisterCredentials } from '@interfaces/redux/auth/IRegisterCredentials';
-import { ILoginCredentials } from '@interfaces/redux/auth/ILoginCredentials';
-import { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+
+import type { RootState } from '@redux/store';
+
+
+
+import type { ILoginCredentials } from '@interfaces/redux/auth/ILoginCredentials';
+import type { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
+import type { IRegisterCredentials } from '@interfaces/redux/auth/IRegisterCredentials';
+import type { IUserDataLoginAndRegister } from '@interfaces/redux/auth/IUserDataLoginAndRegister';
+import type { IUserDataRefreshUser } from '@interfaces/redux/auth/IUserDataRefreshUser';
+
+
+axios.defaults.baseURL = 'https://connections-api.goit.global';
 
 const setToken = (token: string): void => {
   axios.defaults.headers.common['Authorization'] = token;

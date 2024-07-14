@@ -1,12 +1,14 @@
-import axios, { AxiosError } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios, { AxiosError } from 'axios';
 
-import { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
-import { IContact } from '@interfaces/redux/contacts/IContact';
-import { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
-import { IDeleteContactId } from '@interfaces/redux/contacts/IDeleteContactId';
-import { Contact } from '@myTypes/Contact';
-import { RootState } from '@redux/store';
+import type { RootState } from '@redux/store';
+
+import type { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
+import type { IContact } from '@interfaces/redux/contacts/IContact';
+import type { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
+import type { IDeleteContactId } from '@interfaces/redux/contacts/IDeleteContactId';
+
+import type { Contact } from '@myTypes/Contact';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',

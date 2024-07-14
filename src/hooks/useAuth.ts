@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@redux/store';
 import { refreshUser } from '@redux/auth/operations';
+import type { AppDispatch } from '@redux/store';
 
 export const useAuth = () => {
   const dispatch: AppDispatch = useDispatch();

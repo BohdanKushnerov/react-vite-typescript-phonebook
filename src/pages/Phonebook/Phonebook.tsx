@@ -2,12 +2,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ContactForm from '@components/ContactForm';
-import Filter from '@components/Filter';
 import ContactList from '@components/Contacts/ContactList';
+import Filter from '@components/Filter/Filter';
 import ScrollTopButton from '@components/ScrollTop';
-import { AppDispatch } from '@redux/store';
+
 import { fetchContacts } from '@redux/contacts/operations';
 import { getContacts } from '@redux/contacts/selectors';
+import type { AppDispatch } from '@redux/store';
+
 import { PageContainer } from '@assets/styles/common';
 
 const Phonebook = () => {

@@ -1,20 +1,24 @@
-import { FC } from 'react';
+import type { FC } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { z } from 'zod';
-import { SubmitHandler } from 'react-hook-form';
 
-import { AppDispatch } from '@redux/store';
+import { z } from 'zod';
+
 import { addContacts, changeContact } from '@redux/contacts/operations';
+import type { AppDispatch } from '@redux/store';
+
 import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+
 import { Form, MainButton } from '@assets/styles/common';
 
 const contactSchema = z.object({
   name: z
     .string()
     .min(1, { message: 'Name is required' })
-    .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ]+([' -][a-zA-Zа-яА-ЯґҐєЄіІїЇ]*)*$/, {
+    .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]+([' -][a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]*)*$/, {
       message: 'Invalid name format',
     }),
   number: z

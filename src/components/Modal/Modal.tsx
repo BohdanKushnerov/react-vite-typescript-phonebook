@@ -1,9 +1,11 @@
-import { FC, MouseEvent } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 
-import ContactForm from '@components/ContactForm';
-import { useCloseModal } from '@hooks/useCloseModal';
 import { Overlay } from './Modal.styled';
+
+import ContactForm from '@components/ContactForm';
+
+import { useCloseModal } from '@hooks/useCloseModal';
 
 interface IModalProps {
   id: string;
