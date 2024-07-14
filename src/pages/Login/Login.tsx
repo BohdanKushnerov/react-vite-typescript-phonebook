@@ -1,51 +1,30 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AppDispatch } from '@redux/store';
-import { getAuthError, getIsRefreshingStatus } from '@redux/auth/selectors';
-import { logIn } from '@redux/auth/operations';
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
-
-interface ILoginForm {
-  email: string;
-  password: string;
-}
+import { SubmitHandler } from 'react-hook-form';
+import { AppDispatch } from '@redux/store';
+import { useDispatch } from 'react-redux';
+import { logIn } from '@redux/auth/operations';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
 
+type LoginFormValues = z.infer<typeof loginSchema>;
+
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitSuccessful, errors },
-  } = useForm<ILoginForm>({
-    mode: 'onChange',
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
+  const { register, errors, handleSubmit } =
+    useFormWithValidation<LoginFormValues>(loginSchema, {
       email: '',
       password: '',
-    },
-  });
+    });
 
   const dispatch: AppDispatch = useDispatch();
-  const authError = useSelector(getAuthError);
-  const isRefreshing = useSelector(getIsRefreshingStatus);
 
-  useEffect(() => {
-    if (isSubmitSuccessful && !authError && !isRefreshing) {
-      reset();
-    }
-  }, [authError, isRefreshing, isSubmitSuccessful, reset]);
-
-  const onSubmit: SubmitHandler<ILoginForm> = data => {
+  const onSubmit: SubmitHandler<LoginFormValues> = data => {
     const { email, password } = data;
 
     dispatch(logIn({ email, password }));

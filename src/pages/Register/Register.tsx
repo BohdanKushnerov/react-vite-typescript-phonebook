@@ -1,20 +1,12 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AppDispatch } from '@redux/store';
-import { getAuthError, getIsRefreshingStatus } from '@redux/auth/selectors';
 import { register as registerOperation } from '@redux/auth/operations';
 import { TextField } from '@mui/material';
 import { Form, MainButton } from '@assets/styles/common';
-
-interface IRegisterForm {
-  name: string;
-  email: string;
-  password: string;
-}
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
 
 const registerSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -22,33 +14,19 @@ const registerSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters long'),
 });
 
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
 const Register = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitSuccessful, errors },
-  } = useForm<IRegisterForm>({
-    mode: 'onChange',
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
+  const { register, errors, handleSubmit } =
+    useFormWithValidation<RegisterFormValues>(registerSchema, {
       name: '',
       email: '',
       password: '',
-    },
-  });
+    });
 
   const dispatch: AppDispatch = useDispatch();
-  const authError = useSelector(getAuthError);
-  const isRefreshing = useSelector(getIsRefreshingStatus);
 
-  useEffect(() => {
-    if (isSubmitSuccessful && !authError && !isRefreshing) {
-      reset();
-    }
-  }, [authError, isRefreshing, isSubmitSuccessful, reset]);
-
-  const onSubmit: SubmitHandler<IRegisterForm> = data => {
+  const onSubmit: SubmitHandler<RegisterFormValues> = data => {
     const { name, email, password } = data;
 
     dispatch(registerOperation({ name, email, password }));

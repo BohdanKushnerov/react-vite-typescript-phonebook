@@ -5,6 +5,8 @@ import { IMyKnownError } from '@interfaces/redux/auth/IMyKnownError';
 import { IContact } from '@interfaces/redux/contacts/IContact';
 import { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
 import { IDeleteContactId } from '@interfaces/redux/contacts/IDeleteContactId';
+import { Contact } from '@myTypes/Contact';
+import { RootState } from '@redux/store';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
@@ -25,13 +27,23 @@ export const fetchContacts = createAsyncThunk(
 export const addContacts = createAsyncThunk<
   IContact,
   IContactWithoutId,
-  { rejectValue: IMyKnownError }
+  { rejectValue: IMyKnownError; state: RootState }
 >('contacts/addContacts', async ({ name, number }, thunkAPI) => {
   try {
+    const items = thunkAPI.getState().contacts.items;
+
+    const isIncludes = items.find(
+      (contact: Contact) => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isIncludes) {
+      throw new Error('Contact is already in phone');
+    }
+
     const response = await axios.post(`/contacts`, { name, number });
     return response.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
+    if (error instanceof AxiosError || error instanceof Error) {
       return thunkAPI.rejectWithValue({ errorMessage: error.message });
     }
   }

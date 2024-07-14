@@ -12,7 +12,7 @@ import {
 import { contactsReducer } from './contacts/contactsSlice';
 import { filterReducer } from './filter/filterSlice';
 import { persistedReducer } from './auth/authSlice';
-import { handleAddContactFulfilled } from '@utils/handleAddContactFulfilled';
+import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +25,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(handleAddContactFulfilled),
+    }).concat(toastNotificationsMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
