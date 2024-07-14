@@ -1,60 +1,59 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@redux/store';
+import { z } from 'zod';
+
 import { logIn } from '@redux/auth/operations';
+import type { AppDispatch } from '@redux/store';
+
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
 import { TextField } from '@mui/material';
+
 import { Form, MainButton } from '@assets/styles/common';
 
+const loginSchema = z.object({
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, errors, handleSubmit } =
+    useFormWithValidation<LoginFormValues>(loginSchema, {
+      email: '',
+      password: '',
+    });
 
   const dispatch: AppDispatch = useDispatch();
 
-  const handleLoginInputsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case 'email':
-        return setEmail(value);
-
-      case 'password':
-        return setPassword(value);
-
-      default:
-        return;
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<LoginFormValues> = data => {
+    const { email, password } = data;
 
     dispatch(logIn({ email, password }));
   };
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <p>Email: "mytest@mail.com"</p>
         <p>Password:"qwerty123"</p>
         <TextField
           fullWidth
-          id="email-outlined-controlled"
+          {...register('email', { required: 'Email is required' })}
           label="Email"
           type="email"
-          name="email"
-          value={email}
-          onChange={handleLoginInputsChange}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email.message : ''}
         />
         <TextField
           fullWidth
-          id="password-outlined-controlled"
+          {...register('password', { required: 'Password is required' })}
           label="Password"
           type="password"
-          name="password"
-          value={password}
-          onChange={handleLoginInputsChange}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
         />
         <MainButton variant="contained" type="submit">
           Log In

@@ -1,11 +1,12 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 import { contactsInitialState } from './initialState';
+
 import {
-  fetchContacts,
   addContacts,
   changeContact,
   deleteContacts,
+  fetchContacts,
 } from '@redux/contacts/operations';
 
 type CreateThunkValue = 'pending' | 'rejected' | 'fulfilled';

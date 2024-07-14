@@ -1,9 +1,11 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { useSelector } from 'react-redux';
 
-import { getIsLoggedInStatus } from '@redux/auth/selectors';
-import { Toolbar } from '@mui/material';
 import { StyledNavLink } from './Nav.styled';
+
+import { getIsLoggedInStatus } from '@redux/auth/selectors';
+
+import { Toolbar } from '@mui/material';
 
 const Nav: FC = () => {
   const isLoggedIn = useSelector(getIsLoggedInStatus);

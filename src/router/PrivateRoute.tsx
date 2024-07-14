@@ -1,18 +1,17 @@
-import { ComponentType, FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import type { ComponentType, FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import {
   getIsLoggedInStatus,
   getIsRefreshingStatus,
 } from '@redux/auth/selectors';
 
-interface IRestrictedRouteProps {
+interface IPrivateRouteProps {
   component: ComponentType;
   redirectTo?: string;
 }
-
-const RestrictedRoute: FC<IRestrictedRouteProps> = ({
+const PrivateRoute: FC<IPrivateRouteProps> = ({
   component: Component,
   redirectTo = '/',
 }) => {
@@ -21,7 +20,7 @@ const RestrictedRoute: FC<IRestrictedRouteProps> = ({
 
   const shouldRedirect = isLoggedIn && !isRefreshing;
 
-  return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
+  return shouldRedirect ? <Component /> : <Navigate to={redirectTo} />;
 };
 
-export default RestrictedRoute;
+export default PrivateRoute;

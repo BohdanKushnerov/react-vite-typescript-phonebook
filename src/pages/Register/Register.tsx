@@ -1,71 +1,68 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@redux/store';
-import { register } from '@redux/auth/operations';
+import { z } from 'zod';
+
+import { register as registerOperation } from '@redux/auth/operations';
+import type { AppDispatch } from '@redux/store';
+
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
 import { TextField } from '@mui/material';
+
 import { Form, MainButton } from '@assets/styles/common';
 
+const registerSchema = z.object({
+  name: z.string().min(3, 'Name must be at least 3 characters long'),
+  email: z.string().email('Invalid email address'),
+  password: z.string().min(6, 'Password must be at least 6 characters long'),
+});
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, errors, handleSubmit } =
+    useFormWithValidation<RegisterFormValues>(registerSchema, {
+      name: '',
+      email: '',
+      password: '',
+    });
 
   const dispatch: AppDispatch = useDispatch();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const onSubmit: SubmitHandler<RegisterFormValues> = data => {
+    const { name, email, password } = data;
 
-    switch (name) {
-      case 'name':
-        return setName(value);
-
-      case 'email':
-        return setEmail(value);
-
-      case 'password':
-        return setPassword(value);
-
-      default:
-        return;
-    }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(register({ name, email, password }));
+    dispatch(registerOperation({ name, email, password }));
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         fullWidth
-        id="register-name-outlined-controlled"
-        label="Username"
+        {...register('name', { required: 'Name is required' })}
+        label="Name"
         type="text"
-        name="name"
-        value={name}
-        onChange={handleChange}
+        error={!!errors.name}
+        helperText={errors.name ? errors.name.message : ''}
       />
 
       <TextField
         fullWidth
-        id="register-email-outlined-controlled"
+        {...register('email', { required: 'Email is required' })}
         label="Email"
         type="email"
-        name="email"
-        value={email}
-        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email ? errors.email.message : ''}
       />
 
       <TextField
         fullWidth
-        id="register-password-outlined-controlled"
+        {...register('password', { required: 'Password is required' })}
         label="Password"
         type="password"
-        name="password"
-        value={password}
-        onChange={handleChange}
+        error={!!errors.password}
+        helperText={errors.password ? errors.password.message : ''}
       />
 
       <MainButton variant="contained" type="submit">

@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { StyledNavLink } from '@components/Navigation/Nav.styled';
+
 import { Toolbar } from '@mui/material';
 
 const AuthNav: FC = () => {

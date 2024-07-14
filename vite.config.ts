@@ -1,5 +1,6 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
       '@redux': '/src/redux',
       '@assets': '/src/assets',
       '@pages': '/src/pages',
-      '@routes': '/src/routes',
+      '@router': '/src/router',
       '@utils': '/src/utils',
       '@hooks': '/src/hooks',
       '@interfaces': '/src/interfaces',
@@ -17,7 +18,6 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base: '/react-vite-typescript-phonebook',
   build: {
     outDir: 'build',
   },

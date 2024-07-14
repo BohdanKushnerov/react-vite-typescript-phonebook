@@ -1,9 +1,11 @@
-import { ChangeEvent, FC, memo } from 'react';
+import type { ChangeEvent, FC } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch } from '@redux/store';
 import { getFilter } from '@redux/contacts/selectors';
 import { changeFilter } from '@redux/filter/filterSlice';
+import type { AppDispatch } from '@redux/store';
+
 import { TextField } from '@mui/material';
 
 const Filter: FC = memo(() => {

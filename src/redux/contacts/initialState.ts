@@ -1,4 +1,4 @@
-import { IContactInitialState } from '@interfaces/redux/contacts/IContactInitialState';
+import type { IContactInitialState } from '@interfaces/redux/contacts/IContactInitialState';
 
 export const contactsInitialState: IContactInitialState = {
   items: [],

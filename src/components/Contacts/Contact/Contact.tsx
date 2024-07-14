@@ -1,16 +1,19 @@
-import { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@components/Modal';
-import { AppDispatch } from '@redux/store';
-import { getContacts } from '@redux/contacts/selectors';
+
 import { deleteContacts } from '@redux/contacts/operations';
+import { getContacts } from '@redux/contacts/selectors';
+import type { AppDispatch } from '@redux/store';
+
 import { Button } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 interface IContactProps {
   name: string;

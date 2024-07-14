@@ -1,7 +1,9 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 
+import type { PaletteMode } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, PaletteMode } from '@mui/material';
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},
@@ -27,8 +29,8 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#3c3f3c',
-      contrastText: '#FFFFFF',
+      main: '#7ab87a',
+      contrastText: '#ffffff',
     },
     action: {
       active: '#8a8a8a',
@@ -46,13 +48,13 @@ type ToggleColorModeProps = {
 export function ToggleColorMode({ children }: ToggleColorModeProps) {
   const [mode, setMode] = useState<PaletteMode>(() => {
     const storedTheme = localStorage.getItem('theme');
-    return storedTheme !== null ? JSON.parse(storedTheme) : 'light';
+    return (storedTheme !== null ? storedTheme : 'light') as PaletteMode;
   });
 
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
   useEffect(() => {
-    window.localStorage.setItem('theme', JSON.stringify(mode));
+    window.localStorage.setItem('theme', mode);
   }, [mode]);
 
   const colorMode = useMemo(

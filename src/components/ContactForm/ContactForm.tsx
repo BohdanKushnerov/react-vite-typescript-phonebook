@@ -1,14 +1,38 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import type { FC } from 'react';
+import type { SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@redux/store';
-import { getContacts } from '@redux/contacts/selectors';
+import { z } from 'zod';
+
 import { addContacts, changeContact } from '@redux/contacts/operations';
+import type { AppDispatch } from '@redux/store';
+
+import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Contact } from '@myTypes/Contact';
+
 import { Form, MainButton } from '@assets/styles/common';
+
+const contactSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: 'Name is required' })
+    .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]+([' -][a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]*)*$/, {
+      message: 'Invalid name format',
+    }),
+  number: z
+    .string()
+    .min(1, { message: 'Number is required' })
+    .regex(
+      /^\+?\d{0,3}[\s-]?\(?\d{1,3}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9}$/,
+      {
+        message: 'Invalid number format',
+      }
+    ),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
 
 interface IContactFormProps {
   name?: string;
@@ -25,94 +49,46 @@ const ContactForm: FC<IContactFormProps> = ({
   id = '',
   onClose = () => {},
 }) => {
-  const [name, setName] = useState(initialName);
-  const [number, setNumber] = useState(initialNumber);
+  const { register, errors, handleSubmit } =
+    useFormWithValidation<ContactFormValues>(contactSchema, {
+      name: initialName,
+      number: initialNumber,
+    });
 
   const dispatch: AppDispatch = useDispatch();
-  const { items } = useSelector(getContacts);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const isIncludes = items.find(
-      (contact: Contact) => contact.name.toLowerCase() === name.toLowerCase()
-    );
+  const onSubmit: SubmitHandler<ContactFormValues> = data => {
+    const { name, number } = data;
 
     if (isChangeContact) {
       dispatch(changeContact({ id, name, number }));
       onClose();
     } else {
-      if (isIncludes) {
-        toast.error(
-          <span>
-            <b>{name}</b> is already in contacts
-          </span>
-        );
-      } else {
-        dispatch(addContacts({ name, number }));
-      }
-      reset();
+      dispatch(addContacts({ name, number }));
     }
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-
-      case 'number':
-        setNumber(value);
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const reset = () => {
-    setName('');
-    setNumber('');
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Box>
         <TextField
           fullWidth
-          id="name-outlined-controlled"
+          {...register('name', { required: 'Name is required' })}
           label="Name"
           type="text"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          inputProps={{
-            pattern: /^[a-zA-Zа-яА-Я]+([' -][a-zA-Zа-яА-Я]*)*$/,
-            title:
-              "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
-            required: true,
-          }}
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
         />
       </Box>
 
       <Box>
         <TextField
           fullWidth
-          id="number-outlined-controlled"
-          label="Phone"
+          {...register('number', { required: 'Number is required' })}
+          label="Number"
           type="tel"
-          name="number"
-          value={number}
-          onChange={handleChange}
-          inputProps={{
-            pattern:
-              /^\+?\d{0,3}[\s-]?\(?\d{1,3}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9}$/,
-            title:
-              'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-            required: true,
-          }}
-          autoComplete="on"
+          error={!!errors.number}
+          helperText={errors.number ? errors.number.message : ''}
         />
       </Box>
 
