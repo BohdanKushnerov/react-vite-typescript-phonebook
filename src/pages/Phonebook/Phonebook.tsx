@@ -11,6 +11,7 @@ import { getContacts } from '@redux/contacts/selectors';
 import type { AppDispatch } from '@redux/store';
 
 import { PageContainer } from '@assets/styles/common';
+import { LocalStorageValues } from '@enums/localStorageValues';
 
 const Phonebook = () => {
   const { error } = useSelector(getContacts);
@@ -24,6 +25,10 @@ const Phonebook = () => {
       promise.abort();
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem(LocalStorageValues.IsPhonebookPath, 'true');
+  }, []);
 
   return (
     <PageContainer>

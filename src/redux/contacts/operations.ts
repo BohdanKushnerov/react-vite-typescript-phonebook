@@ -8,7 +8,7 @@ import type { IContact } from '@interfaces/redux/contacts/IContact';
 import type { IContactWithoutId } from '@interfaces/redux/contacts/IContactWithoutId';
 import type { IDeleteContactId } from '@interfaces/redux/contacts/IDeleteContactId';
 
-import type { Contact } from '@myTypes/Contact';
+import type { Contact } from 'types/Contact';
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',

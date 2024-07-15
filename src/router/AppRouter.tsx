@@ -8,6 +8,8 @@ import Layout from '../Layout';
 
 import ErrorPage from '@pages/ErrorPage';
 
+import { AppPaths } from '@enums/appPaths';
+
 const Home = lazy(() => import('@pages/Home'));
 const Login = lazy(() => import('@pages/Login'));
 const Register = lazy(() => import('@pages/Register'));
@@ -15,26 +17,36 @@ const Phonebook = lazy(() => import('@pages/Phonebook'));
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppPaths.BasePath,
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/phonebook',
-        element: <PrivateRoute component={Phonebook} redirectTo="/" />,
-      },
-      {
-        path: '/',
+        path: AppPaths.BasePath,
         element: <Home />,
       },
       {
-        path: '/login',
-        element: <RestrictedRoute component={Login} redirectTo="/phonebook" />,
+        path: AppPaths.LoginPath,
+        element: (
+          <RestrictedRoute
+            component={Login}
+            redirectTo={AppPaths.PhonebookPath}
+          />
+        ),
       },
       {
-        path: '/register',
+        path: AppPaths.RegisterPath,
         element: (
-          <RestrictedRoute component={Register} redirectTo="/phonebook" />
+          <RestrictedRoute
+            component={Register}
+            redirectTo={AppPaths.PhonebookPath}
+          />
+        ),
+      },
+      {
+        path: AppPaths.PhonebookPath,
+        element: (
+          <PrivateRoute component={Phonebook} redirectTo={AppPaths.LoginPath} />
         ),
       },
     ],

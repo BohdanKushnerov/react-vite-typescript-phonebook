@@ -12,24 +12,24 @@ import { useFormWithValidation } from '@hooks/useFormWithValidation ';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
+import { FormsMessages } from '@enums/formsMessages';
+import { RegexPatterns } from '@enums/regexPatterns';
+
 import { Form, MainButton } from '@assets/styles/common';
 
 const contactSchema = z.object({
   name: z
     .string()
-    .min(1, { message: 'Name is required' })
-    .regex(/^[a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]+([' -][a-zA-Zа-яА-ЯґҐєЄіІїЇ0-9]*)*$/, {
-      message: 'Invalid name format',
+    .min(1, { message: FormsMessages.NameIsRequired })
+    .regex(new RegExp(RegexPatterns.NamePattern), {
+      message: FormsMessages.InvalidNameFormat,
     }),
   number: z
     .string()
-    .min(1, { message: 'Number is required' })
-    .regex(
-      /^\+?\d{0,3}[\s-]?\(?\d{1,3}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9}$/,
-      {
-        message: 'Invalid number format',
-      }
-    ),
+    .min(1, { message: FormsMessages.NumberIsRequired })
+    .regex(new RegExp(RegexPatterns.NumberPattern), {
+      message: FormsMessages.InvalidNumberFormat,
+    }),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -73,7 +73,7 @@ const ContactForm: FC<IContactFormProps> = ({
       <Box>
         <TextField
           fullWidth
-          {...register('name', { required: 'Name is required' })}
+          {...register('name')}
           label="Name"
           type="text"
           error={!!errors.name}
@@ -84,7 +84,7 @@ const ContactForm: FC<IContactFormProps> = ({
       <Box>
         <TextField
           fullWidth
-          {...register('number', { required: 'Number is required' })}
+          {...register('number')}
           label="Number"
           type="tel"
           error={!!errors.number}

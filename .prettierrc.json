@@ -13,7 +13,8 @@
     "@utils/",
     "@mui/",
     "@interfaces/",
-    "@myTypes/",
+    "@enums/",
+    "types/",
     "@assets/"
   ],
   "importOrderSeparation": true,

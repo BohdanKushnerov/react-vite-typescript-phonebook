@@ -4,6 +4,6 @@ export const initialState: IAuthInitialState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
-  isRefreshing: false,
+  isRefreshing: true,
   error: null,
 };

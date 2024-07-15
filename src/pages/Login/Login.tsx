@@ -10,11 +10,13 @@ import { useFormWithValidation } from '@hooks/useFormWithValidation ';
 
 import { TextField } from '@mui/material';
 
+import { FormsMessages } from '@enums/formsMessages';
+
 import { Form, MainButton } from '@assets/styles/common';
 
 const loginSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
+  email: z.string().email(FormsMessages.InvalidEmailAddress),
+  password: z.string().min(6, FormsMessages.ShortPassword),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -41,7 +43,7 @@ const Login = () => {
         <p>Password:"qwerty123"</p>
         <TextField
           fullWidth
-          {...register('email', { required: 'Email is required' })}
+          {...register('email')}
           label="Email"
           type="email"
           error={!!errors.email}
@@ -49,7 +51,7 @@ const Login = () => {
         />
         <TextField
           fullWidth
-          {...register('password', { required: 'Password is required' })}
+          {...register('password')}
           label="Password"
           type="password"
           error={!!errors.password}

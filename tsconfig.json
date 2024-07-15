@@ -10,7 +10,7 @@
       "@utils/*": ["utils/*"],
       "@hooks/*": ["hooks/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@myTypes/*": ["myTypes/*"]
+      "@enums/*": ["enums/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

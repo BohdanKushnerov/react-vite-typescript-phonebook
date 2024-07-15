@@ -14,7 +14,7 @@ export default defineConfig({
       '@utils': '/src/utils',
       '@hooks': '/src/hooks',
       '@interfaces': '/src/interfaces',
-      '@myTypes': '/src/myTypes',
+      '@enums': '/src/enums',
     },
   },
   plugins: [react()],

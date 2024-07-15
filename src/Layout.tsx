@@ -4,7 +4,11 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '@components/Header';
 
+import { useRefreshPagePhonebook } from '@hooks/useRefreshPagePhonebook';
+
 const Layout: FC = () => {
+  useRefreshPagePhonebook();
+
   return (
     <div>
       <Header position="sticky" />

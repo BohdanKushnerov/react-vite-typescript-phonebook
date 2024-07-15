@@ -10,12 +10,14 @@ import { useFormWithValidation } from '@hooks/useFormWithValidation ';
 
 import { TextField } from '@mui/material';
 
+import { FormsMessages } from '@enums/formsMessages';
+
 import { Form, MainButton } from '@assets/styles/common';
 
 const registerSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters long'),
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters long'),
+  name: z.string().min(3, FormsMessages.ShortName),
+  email: z.string().email(FormsMessages.InvalidEmailAddress),
+  password: z.string().min(6, FormsMessages.ShortPassword),
 });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
@@ -40,7 +42,7 @@ const Register = () => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         fullWidth
-        {...register('name', { required: 'Name is required' })}
+        {...register('name')}
         label="Name"
         type="text"
         error={!!errors.name}
@@ -49,7 +51,7 @@ const Register = () => {
 
       <TextField
         fullWidth
-        {...register('email', { required: 'Email is required' })}
+        {...register('email')}
         label="Email"
         type="email"
         error={!!errors.email}
@@ -58,7 +60,7 @@ const Register = () => {
 
       <TextField
         fullWidth
-        {...register('password', { required: 'Password is required' })}
+        {...register('password')}
         label="Password"
         type="password"
         error={!!errors.password}

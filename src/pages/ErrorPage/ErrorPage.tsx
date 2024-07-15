@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
+import { AppPaths } from '@enums/appPaths';
+
 import { MainButton, PageContainer } from '@assets/styles/common';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/');
+    navigate(AppPaths.BasePath);
   };
 
   return (

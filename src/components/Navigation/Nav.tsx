@@ -7,6 +7,8 @@ import { getIsLoggedInStatus } from '@redux/auth/selectors';
 
 import { Toolbar } from '@mui/material';
 
+import { LocalStorageValues } from '@enums/localStorageValues';
+
 const Nav: FC = () => {
   const isLoggedIn = useSelector(getIsLoggedInStatus);
 
@@ -17,7 +19,14 @@ const Nav: FC = () => {
         gap: 8,
       }}
     >
-      <StyledNavLink to="/">Home</StyledNavLink>
+      <StyledNavLink
+        to="/"
+        onClick={() =>
+          localStorage.removeItem(LocalStorageValues.IsPhonebookPath)
+        }
+      >
+        Home
+      </StyledNavLink>
       {isLoggedIn && <StyledNavLink to="/phonebook">Phonebook</StyledNavLink>}
     </Toolbar>
   );

@@ -6,6 +6,8 @@ import { logOut } from '@redux/auth/operations';
 import { getAuthName } from '@redux/auth/selectors';
 import type { AppDispatch } from '@redux/store';
 
+import { LocalStorageValues } from '@enums/localStorageValues';
+
 const UserMenu = () => {
   const dispatch: AppDispatch = useDispatch();
 
@@ -27,7 +29,10 @@ const UserMenu = () => {
       <UserMenuBtn
         type="button"
         size="small"
-        onClick={() => dispatch(logOut())}
+        onClick={() => {
+          localStorage.removeItem(LocalStorageValues.IsPhonebookPath);
+          dispatch(logOut());
+        }}
       >
         Logout
       </UserMenuBtn>
