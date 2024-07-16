@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@components/Modal';
 
-import { deleteContacts } from '@redux/contacts/operations';
-import { getContacts } from '@redux/contacts/selectors';
-import type { AppDispatch } from '@redux/store';
+// import { getContacts } from '@redu@redux/storers';
+// import type { AppDispatch } from '@redux/(old)/store';
+// import { deleteContacts } from '@redux/contacts/operations';
 
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -25,8 +25,8 @@ const Contact: FC<IContactProps> = ({ name, number, id }) => {
   const [showModal, setShowModal] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const dispatch: AppDispatch = useDispatch();
-  const { isLoading } = useSelector(getContacts);
+  // const dispatch: AppDispatch = useDispatch();
+  // const { isLoading } = useSelector(getContacts);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
@@ -34,7 +34,7 @@ const Contact: FC<IContactProps> = ({ name, number, id }) => {
 
   const handleDelete = async (id: string) => {
     setIsButtonDisabled(true);
-    await dispatch(deleteContacts({ id }));
+    // await dispatch(deleteContacts({ id }));
     setIsButtonDisabled(false);
   };
 

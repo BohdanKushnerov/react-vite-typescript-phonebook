@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
 import { combineReducers } from 'redux';
 import {
   FLUSH,
@@ -11,16 +10,16 @@ import {
   persistStore,
 } from 'redux-persist';
 
-import { authApi } from './auth/authApi';
-import { persistedReducer } from './auth/authSlice';
-import { contactsApi } from './contactsApi';
+import { persistedReducer as authReducer } from './(old)/auth/authSlice';
+import { contactsReducer } from './(old)/contacts/contactsSlice';
+import { filterReducer } from './(old)/filter/filterSlice';
 
 import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
 
 const rootReducer = combineReducers({
-  auth: persistedReducer,
-  [authApi.reducerPath]: authApi.reducer,
-  [contactsApi.reducerPath]: contactsApi.reducer,
+  auth: authReducer,
+  contacts: contactsReducer,
+  filter: filterReducer,
 });
 
 export const store = configureStore({
@@ -30,16 +29,10 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(
-      authApi.middleware,
-      contactsApi.middleware,
-      toastNotificationsMiddleware
-    ),
+    }).concat(toastNotificationsMiddleware),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
-
-setupListeners(store.dispatch);

@@ -1,20 +1,20 @@
 import type { ChangeEvent, FC } from 'react';
 import { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { getFilter } from '@redux/contacts/selectors';
-import { changeFilter } from '@redux/filter/filterSlice';
-import type { AppDispatch } from '@redux/store';
-
+// import { useDispatch, useSelector } from 'react-redux';
+// import { changeFilter } from '@red@redux/storeice';
+// import type { AppDispatch } from '@redux/(old)/store';
+// import { getFilter } from '@redux/contacts/selectors';
 import { TextField } from '@mui/material';
 
 const Filter: FC = memo(() => {
-  const filterState = useSelector(getFilter);
-  const dispatch: AppDispatch = useDispatch();
+  const filterState = 'sadsadsad';
+  // const filterState = useSelector(getFilter);
+  // const dispatch: AppDispatch = useDispatch();
 
   const handleChangeFilter = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
-    dispatch(changeFilter(value));
+    // dispatch(changeFilter(value));
   };
 
   return (

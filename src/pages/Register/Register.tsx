@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { z } from 'zod';
 
-import { register as registerOperation } from '@redux/auth/operations';
+import { authApi } from '@redux/auth/authApi';
+import { setAuth } from '@redux/auth/authSlice';
+// import { register as registerOperation } from '@redux/auth/operations';
 import type { AppDispatch } from '@redux/store';
 
-import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+import { useFormWithValidation } from '@hooks/useFormWithValidation';
 
 import { TextField } from '@mui/material';
 
@@ -23,6 +25,8 @@ const registerSchema = z.object({
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const Register = () => {
+  const [registerTrigger, { data, isSuccess }] = authApi.useRegisterMutation();
+
   const { register, errors, handleSubmit } =
     useFormWithValidation<RegisterFormValues>(registerSchema, {
       name: '',
@@ -32,10 +36,12 @@ const Register = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<RegisterFormValues> = data => {
-    const { name, email, password } = data;
+  console.log('data, isSuccess', data, isSuccess);
 
-    dispatch(registerOperation({ name, email, password }));
+  const onSubmit: SubmitHandler<RegisterFormValues> = async data => {
+    const { name, email, password } = data;
+    const user = await registerTrigger({ name, email, password }).unwrap();
+    dispatch(setAuth(user));
   };
 
   return (

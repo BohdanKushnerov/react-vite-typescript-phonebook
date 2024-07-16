@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { z } from 'zod';
 
-import { logIn } from '@redux/auth/operations';
-import type { AppDispatch } from '@redux/store';
+import { authApi } from '@redux/auth/authApi';
+import { setAuth } from '@redux/auth/authSlice';
 
-import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+// import type { AppDispatch } from '@redux/(old)/store';
+// import { logIn } from '@redux/auth@redux/store
+import { useFormWithValidation } from '@hooks/useFormWithValidation';
 
 import { TextField } from '@mui/material';
 
@@ -22,18 +24,26 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const [login, { data, isSuccess }] = authApi.useLoginMutation();
   const { register, errors, handleSubmit } =
     useFormWithValidation<LoginFormValues>(loginSchema, {
       email: '',
       password: '',
     });
 
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = data => {
+  console.log('data, isSuccess', data, isSuccess);
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async data => {
     const { email, password } = data;
-
-    dispatch(logIn({ email, password }));
+    try {
+      const user = await login({ email, password }).unwrap();
+      console.log('user', user);
+      dispatch(setAuth(user));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

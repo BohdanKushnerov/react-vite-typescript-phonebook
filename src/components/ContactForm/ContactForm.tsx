@@ -1,13 +1,12 @@
 import type { FC } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 
+// import { useDispatch } from 'react-redux';
 import { z } from 'zod';
 
-import { addContacts, changeContact } from '@redux/contacts/operations';
-import type { AppDispatch } from '@redux/store';
-
-import { useFormWithValidation } from '@hooks/useFormWithValidation ';
+// import type { AppDispatch } from '@redux/(old)/store';
+// import { addContacts, changeContact } from '@redux/contacts/operations';
+import { useFormWithValidation } from '@hooks/useFormWithValidation';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -55,16 +54,16 @@ const ContactForm: FC<IContactFormProps> = ({
       number: initialNumber,
     });
 
-  const dispatch: AppDispatch = useDispatch();
+  // const dispatch: AppDispatch = useDispatch();
 
   const onSubmit: SubmitHandler<ContactFormValues> = data => {
     const { name, number } = data;
 
     if (isChangeContact) {
-      dispatch(changeContact({ id, name, number }));
+      // dispatch(changeContact({ id, name, number }));
       onClose();
     } else {
-      dispatch(addContacts({ name, number }));
+      // dispatch(addContacts({ name, number }));
     }
   };
 

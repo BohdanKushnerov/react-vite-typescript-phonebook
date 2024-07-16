@@ -4,10 +4,10 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '@components/Header';
 
-import { useRefreshPagePhonebook } from '@hooks/useRefreshPagePhonebook';
+// import { useRefreshPagePhonebook } from '@hooks/useRefreshPagePhonebook';
 
 const Layout: FC = () => {
-  useRefreshPagePhonebook();
+  // useRefreshPagePhonebook();
 
   return (
     <div>

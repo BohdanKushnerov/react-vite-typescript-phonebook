@@ -2,8 +2,7 @@ import type { ReactNode } from 'react';
 import { createContext, useEffect, useMemo, useState } from 'react';
 
 import type { PaletteMode } from '@mui/material';
-import { CssBaseline } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 export const ColorModeContext = createContext({
   toggleColorMode: () => {},

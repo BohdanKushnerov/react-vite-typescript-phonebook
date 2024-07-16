@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 
 import { StyledNavLink } from './Nav.styled';
 
-import { getIsLoggedInStatus } from '@redux/auth/selectors';
+import { getToken } from '@redux/auth/selectors';
 
 import { Toolbar } from '@mui/material';
 
 import { LocalStorageValues } from '@enums/localStorageValues';
 
 const Nav: FC = () => {
-  const isLoggedIn = useSelector(getIsLoggedInStatus);
+  const token = useSelector(getToken);
 
   return (
     <Toolbar
@@ -27,7 +27,7 @@ const Nav: FC = () => {
       >
         Home
       </StyledNavLink>
-      {isLoggedIn && <StyledNavLink to="/phonebook">Phonebook</StyledNavLink>}
+      {token && <StyledNavLink to="/phonebook">Phonebook</StyledNavLink>}
     </Toolbar>
   );
 };

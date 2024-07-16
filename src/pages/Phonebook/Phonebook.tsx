@@ -6,24 +6,25 @@ import ContactList from '@components/Contacts/ContactList';
 import Filter from '@components/Filter/Filter';
 import ScrollTopButton from '@components/ScrollTop';
 
-import { fetchContacts } from '@redux/contacts/operations';
-import { getContacts } from '@redux/contacts/selectors';
 import type { AppDispatch } from '@redux/store';
 
-import { PageContainer } from '@assets/styles/common';
+// import { getContacts } from '@redu@redux/storers';
+// import type { AppDispatch } from '@redux/(old)/store';
+// import { fetchContacts } from '@redux/contacts/operations';
 import { LocalStorageValues } from '@enums/localStorageValues';
 
+// import { PageContainer } from '@assets/styles/common';
+
 const Phonebook = () => {
-  const { error } = useSelector(getContacts);
+  // const { error } = useSelector(getContacts);
 
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const promise = dispatch(fetchContacts());
-
-    return () => {
-      promise.abort();
-    };
+    // const promise = dispatch(fetchContacts());
+    // return () => {
+    //   promise.abort();
+    // };
   }, [dispatch]);
 
   useEffect(() => {
@@ -31,15 +32,17 @@ const Phonebook = () => {
   }, []);
 
   return (
-    <PageContainer>
+    // <PageContainer>
+    <>
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-      {error && <p>{error}</p>}
+      {/* <Filter />
+      <ContactList /> */}
+      {/* {error && <p>{error}</p>} */}
       <ScrollTopButton />
-    </PageContainer>
+    </>
+    // </PageContainer>
   );
 };
 
