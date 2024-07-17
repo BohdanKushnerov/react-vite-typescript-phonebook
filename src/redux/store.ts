@@ -13,7 +13,7 @@ import {
 
 import { authApi } from './auth/authApi';
 import { persistedReducer } from './auth/authSlice';
-import { contactsApi } from './contactsApi';
+import { contactsApi } from './contacts/contactsApi';
 
 import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
 

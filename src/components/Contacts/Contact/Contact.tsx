@@ -1,12 +1,9 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@components/Modal';
 
-// import { getContacts } from '@redu@redux/storers';
-// import type { AppDispatch } from '@redux/(old)/store';
-// import { deleteContacts } from '@redux/contacts/operations';
+import { contactsApi } from '@redux/contacts/contactsApi';
 
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -22,20 +19,21 @@ interface IContactProps {
 }
 
 const Contact: FC<IContactProps> = ({ name, number, id }) => {
+  const [deleteTrigger, { data, isSuccess }] =
+    contactsApi.useDeleteContactsMutation();
   const [showModal, setShowModal] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-  // const dispatch: AppDispatch = useDispatch();
-  // const { isLoading } = useSelector(getContacts);
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
-  const handleDelete = async (id: string) => {
-    setIsButtonDisabled(true);
-    // await dispatch(deleteContacts({ id }));
-    setIsButtonDisabled(false);
+  const handleDeleteContact = async (id: string) => {
+    try {
+      const deleteItem = await deleteTrigger(id).unwrap();
+      console.log('deleteItem', deleteItem);
+    } catch (error) {
+      console.log('handleDeleteContact', handleDeleteContact);
+    }
   };
 
   return (
@@ -69,7 +67,7 @@ const Contact: FC<IContactProps> = ({ name, number, id }) => {
         type="button"
         variant="contained"
         size="small"
-        disabled={isLoading && isButtonDisabled}
+        // disabled={isLoading && isButtonDisabled}
         onClick={toggleModal}
       >
         Edit
@@ -78,8 +76,8 @@ const Contact: FC<IContactProps> = ({ name, number, id }) => {
         type="button"
         variant="contained"
         size="small"
-        disabled={isLoading && isButtonDisabled}
-        onClick={() => handleDelete(id)}
+        // disabled={isLoading && isButtonDisabled}
+        onClick={() => handleDeleteContact(id)}
       >
         Delete
       </Button>

@@ -1,48 +1,28 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import ContactForm from '@components/ContactForm';
 import ContactList from '@components/Contacts/ContactList';
 import Filter from '@components/Filter/Filter';
 import ScrollTopButton from '@components/ScrollTop';
 
-import type { AppDispatch } from '@redux/store';
-
-// import { getContacts } from '@redu@redux/storers';
-// import type { AppDispatch } from '@redux/(old)/store';
-// import { fetchContacts } from '@redux/contacts/operations';
 import { LocalStorageValues } from '@enums/localStorageValues';
 
-// import { PageContainer } from '@assets/styles/common';
+import { PageContainer } from '@assets/styles/common';
 
 const Phonebook = () => {
-  // const { error } = useSelector(getContacts);
-
-  const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    // const promise = dispatch(fetchContacts());
-    // return () => {
-    //   promise.abort();
-    // };
-  }, [dispatch]);
-
   useEffect(() => {
     localStorage.setItem(LocalStorageValues.IsPhonebookPath, 'true');
   }, []);
 
   return (
-    // <PageContainer>
-    <>
+    <PageContainer>
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
-      {/* <Filter />
-      <ContactList /> */}
-      {/* {error && <p>{error}</p>} */}
+      <Filter />
+      <ContactList />
       <ScrollTopButton />
-    </>
-    // </PageContainer>
+    </PageContainer>
   );
 };
 

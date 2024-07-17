@@ -1,26 +1,20 @@
 import type { FC } from 'react';
-import { useSelector } from 'react-redux';
 
 import { ContactMUIList } from './ContactList.styled';
 
 import Contact from '../Contact';
 
-import { getContacts, getFilter } from '@redux/contacts/selectors';
-
-import { getFilteredContacts } from '@utils/getFilteredContacts';
+import { contactsApi } from '@redux/contacts/contactsApi';
 
 const ContactList: FC = () => {
-  const filterState = useSelector(getFilter);
-  const { items, isLoading } = useSelector(getContacts);
-
-  const filteredContacts = getFilteredContacts(items, filterState);
+  const { data, isLoading } = contactsApi.useGetAllContactsQuery();
 
   return (
     <>
       {isLoading && <p>Loading contacts...</p>}
-      {items.length > 0 && (
+      {data && data.length > 0 && (
         <ContactMUIList>
-          {filteredContacts.map(({ id, name, number }) => {
+          {data.map(({ id, name, number }) => {
             return <Contact key={id} name={name} number={number} id={id} />;
           })}
         </ContactMUIList>
