@@ -15,7 +15,7 @@ import { authApi } from './auth/authApi';
 import { persistedReducer } from './auth/authSlice';
 import { contactsApi } from './contacts/contactsApi';
 
-import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
+// import { toastNotificationsMiddleware } from '@utils/toastNotificationsMiddleware';
 
 const rootReducer = combineReducers({
   auth: persistedReducer,
@@ -32,8 +32,8 @@ export const store = configureStore({
       },
     }).concat(
       authApi.middleware,
-      contactsApi.middleware,
-      toastNotificationsMiddleware
+      contactsApi.middleware
+      // toastNotificationsMiddleware
     ),
 });
 

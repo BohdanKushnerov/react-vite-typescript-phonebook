@@ -1,13 +1,11 @@
 import type { FC } from 'react';
 import type { SubmitHandler } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-// import { useDispatch } from 'react-redux';
 import { z } from 'zod';
 
 import { contactsApi } from '@redux/contacts/contactsApi';
 
-// import type { AppDispatch } from '@redux/(old)/store';
-// import { addContacts, changeContact } from '@redux/contacts/operations';
 import { useFormWithValidation } from '@hooks/useFormWithValidation';
 
 import Box from '@mui/material/Box';
@@ -35,50 +33,28 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-interface IContactFormProps {
-  name?: string;
-  number?: string;
-  isChangeContact?: boolean;
-  id?: string;
-  onClose?: () => void;
-}
+const ContactForm: FC = () => {
+  const [addContact, { isLoading }] = contactsApi.useAddContactMutation();
 
-const ContactForm: FC<IContactFormProps> = ({
-  name: initialName = '',
-  number: initialNumber = '',
-  isChangeContact = false,
-  id = '',
-  onClose = () => {},
-}) => {
-  const [addContact, { data, isSuccess }] = contactsApi.useAddContactMutation();
-  const [
-    changeContact,
-    { data: dataChangeContact, isSuccess: isSuccessChangeContact },
-  ] = contactsApi.useChangeContactMutation();
-  const { register, errors, handleSubmit } =
+  const { register, errors, handleSubmit, reset } =
     useFormWithValidation<ContactFormValues>(contactSchema, {
-      name: initialName,
-      number: initialNumber,
+      name: '',
+      number: '',
     });
-
-  // const dispatch: AppDispatch = useDispatch();
 
   const onSubmit: SubmitHandler<ContactFormValues> = async data => {
     const { name, number } = data;
 
-    if (isChangeContact) {
-      try {
-        changeContact({ id, name, number });
-        onClose();
-      } catch (error) {
-        console.log('changeContact', error);
-      }
-    } else {
-      try {
-        addContact({ name, number });
-      } catch (error) {
-        console.log('addContact', error);
-      }
+    try {
+      const addedItem = await addContact({ name, number }).unwrap();
+      toast.success(
+        <span>
+          Success add - <b>{addedItem.name}</b>
+        </span>
+      );
+      reset();
+    } catch (error) {
+      console.log('addContact', error);
     }
   };
 
@@ -106,8 +82,8 @@ const ContactForm: FC<IContactFormProps> = ({
         />
       </Box>
 
-      <MainButton variant="contained" type="submit">
-        {isChangeContact ? 'Save' : 'Add contact'}
+      <MainButton variant="contained" type="submit" disabled={isLoading}>
+        {isLoading ? 'Adding' : 'Add contact'}
       </MainButton>
     </Form>
   );

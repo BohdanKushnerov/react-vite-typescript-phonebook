@@ -1,13 +1,12 @@
 import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { z } from 'zod';
 
 import { authApi } from '@redux/auth/authApi';
 import { setAuth } from '@redux/auth/authSlice';
 
-// import type { AppDispatch } from '@redux/(old)/store';
-// import { logIn } from '@redux/auth@redux/store
 import { useFormWithValidation } from '@hooks/useFormWithValidation';
 
 import { TextField } from '@mui/material';
@@ -24,8 +23,8 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 const Login = () => {
-  const [login, { data, isSuccess }] = authApi.useLoginMutation();
-  const { register, errors, handleSubmit } =
+  const [loginTrigger] = authApi.useLoginMutation();
+  const { register, errors, handleSubmit, reset } =
     useFormWithValidation<LoginFormValues>(loginSchema, {
       email: '',
       password: '',
@@ -33,16 +32,19 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  console.log('data, isSuccess', data, isSuccess);
-
   const onSubmit: SubmitHandler<LoginFormValues> = async data => {
     const { email, password } = data;
     try {
-      const user = await login({ email, password }).unwrap();
-      console.log('user', user);
-      dispatch(setAuth(user));
+      const loginInfo = await loginTrigger({ email, password }).unwrap();
+      dispatch(setAuth(loginInfo));
+      toast.info(
+        <span>
+          Hello - <b>{loginInfo.user.name}</b>
+        </span>
+      );
+      reset();
     } catch (error) {
-      console.log(error);
+      console.log('login', error);
     }
   };
 

@@ -3,14 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-
-
 import { initialState } from './initialState';
 
-
-
 import type { IUser } from '@interfaces/redux/auth/IUser';
-
 
 interface ISetAuth {
   user: IUser;

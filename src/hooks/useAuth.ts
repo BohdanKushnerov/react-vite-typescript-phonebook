@@ -10,12 +10,6 @@ export const useAuth = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  // console.log(data, error);
-  // console.log('isLoading', isLoading);
-  // console.log('isFetching', isFetching);
-  // console.log('isSuccess', isSuccess);
-  // console.log('isUninitialized', isUninitialized);
-
   useEffect(() => {
     if (!data) return;
     dispatch(setRefreshAuth(data));

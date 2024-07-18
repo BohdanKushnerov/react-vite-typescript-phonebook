@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { UserMenuBtn } from './UserMenu.styled';
 
@@ -20,6 +21,7 @@ const UserMenu = () => {
       await logout().unwrap();
       localStorage.removeItem(LocalStorageValues.IsPhonebookPath);
       dispatch(setLogout());
+      toast.info('See you soon =)');
     } catch (error) {
       console.log('logout', error);
     }

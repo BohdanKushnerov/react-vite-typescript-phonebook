@@ -1,11 +1,11 @@
 import type { SubmitHandler } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { z } from 'zod';
 
 import { authApi } from '@redux/auth/authApi';
 import { setAuth } from '@redux/auth/authSlice';
-// import { register as registerOperation } from '@redux/auth/operations';
 import type { AppDispatch } from '@redux/store';
 
 import { useFormWithValidation } from '@hooks/useFormWithValidation';
@@ -25,9 +25,9 @@ const registerSchema = z.object({
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const Register = () => {
-  const [registerTrigger, { data, isSuccess }] = authApi.useRegisterMutation();
+  const [registerTrigger] = authApi.useRegisterMutation();
 
-  const { register, errors, handleSubmit } =
+  const { register, errors, handleSubmit, reset } =
     useFormWithValidation<RegisterFormValues>(registerSchema, {
       name: '',
       email: '',
@@ -36,12 +36,25 @@ const Register = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  console.log('data, isSuccess', data, isSuccess);
-
   const onSubmit: SubmitHandler<RegisterFormValues> = async data => {
     const { name, email, password } = data;
-    const user = await registerTrigger({ name, email, password }).unwrap();
-    dispatch(setAuth(user));
+    try {
+      const registerInfo = await registerTrigger({
+        name,
+        email,
+        password,
+      }).unwrap();
+      dispatch(setAuth(registerInfo));
+      reset();
+      toast.info(
+        <span>
+          Hello, you have successfully registered -
+          <b>{registerInfo.user.name}</b>
+        </span>
+      );
+    } catch (error) {
+      console.log('register', error);
+    }
   };
 
   return (
