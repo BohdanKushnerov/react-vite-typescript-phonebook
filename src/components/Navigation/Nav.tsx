@@ -7,8 +7,6 @@ import { getToken } from '@redux/auth/selectors';
 
 import { Toolbar } from '@mui/material';
 
-import { LocalStorageValues } from '@enums/localStorageValues';
-
 const Nav: FC = () => {
   const token = useSelector(getToken);
 
@@ -19,14 +17,7 @@ const Nav: FC = () => {
         gap: 8,
       }}
     >
-      <StyledNavLink
-        to="/"
-        onClick={() =>
-          localStorage.removeItem(LocalStorageValues.IsPhonebookPath)
-        }
-      >
-        Home
-      </StyledNavLink>
+      <StyledNavLink to="/">Home</StyledNavLink>
       {token && <StyledNavLink to="/phonebook">Phonebook</StyledNavLink>}
     </Toolbar>
   );

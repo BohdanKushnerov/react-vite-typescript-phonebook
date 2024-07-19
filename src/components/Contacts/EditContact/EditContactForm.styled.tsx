@@ -4,6 +4,7 @@ export const Form = styled('form')(() => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
+  justifyContent: 'space-between',
   gap: 16,
 
   margin: 0,

@@ -8,8 +8,6 @@ import { setLogout } from '@redux/auth/authSlice';
 import { getAuthName } from '@redux/auth/selectors';
 import type { AppDispatch } from '@redux/store';
 
-import { LocalStorageValues } from '@enums/localStorageValues';
-
 const UserMenu = () => {
   const [logout] = authApi.useLogoutMutation();
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +17,6 @@ const UserMenu = () => {
   const handleClickLogout = async () => {
     try {
       await logout().unwrap();
-      localStorage.removeItem(LocalStorageValues.IsPhonebookPath);
       dispatch(setLogout());
       toast.info('See you soon =)');
     } catch (error) {

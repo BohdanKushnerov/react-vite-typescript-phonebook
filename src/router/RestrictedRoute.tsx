@@ -2,7 +2,7 @@ import type { ComponentType, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { getToken } from '@redux/auth/selectors';
+import { getAuthName, getToken } from '@redux/auth/selectors';
 
 interface IRestrictedRouteProps {
   component: ComponentType;
@@ -14,8 +14,11 @@ const RestrictedRoute: FC<IRestrictedRouteProps> = ({
   redirectTo = '/',
 }) => {
   const token = useSelector(getToken);
+  const authName = useSelector(getAuthName);
 
-  return token ? <Navigate to={redirectTo} /> : <Component />;
+  const shouldRedirect = token && authName;
+
+  return shouldRedirect ? <Navigate to={redirectTo} /> : <Component />;
 };
 
 export default RestrictedRoute;

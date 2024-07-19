@@ -1,27 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import Cookies from 'js-cookie';
-
 import type { RootState } from '@redux/store';
 
-// import { persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
 import type { ILoginCredentials } from '@interfaces/redux/auth/ILoginCredentials';
 import type { IRegisterCredentials } from '@interfaces/redux/auth/IRegisterCredentials';
 import type { IUserDataLoginAndRegister } from '@interfaces/redux/auth/IUserDataLoginAndRegister';
 import type { IUserDataRefreshUser } from '@interfaces/redux/auth/IUserDataRefreshUser';
-
-export const setToken = (token: string) => {
-  Cookies.set('token', token, { expires: 7 });
-};
-
-export const getToken = () => {
-  return Cookies.get('token');
-};
-
-export const removeToken = () => {
-  Cookies.remove('token');
-};
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -63,11 +47,3 @@ export const authApi = createApi({
     }),
   }),
 });
-
-// const persistConfig = {
-//   key: 'auth',
-//   storage,
-//   whitelist: ['token'],
-// };
-
-// export const persistedReducer = persistReducer(persistConfig, authApi.reducer);

@@ -2,7 +2,7 @@ import type { ComponentType, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-import { getToken } from '@redux/auth/selectors';
+import { getAuthName, getToken } from '@redux/auth/selectors';
 
 interface IPrivateRouteProps {
   component: ComponentType;
@@ -13,8 +13,11 @@ const PrivateRoute: FC<IPrivateRouteProps> = ({
   redirectTo = '/',
 }) => {
   const token = useSelector(getToken);
+  const authName = useSelector(getAuthName);
 
-  return token ? <Component /> : <Navigate to={redirectTo} />;
+  const shouldRedirect = token && authName;
+
+  return shouldRedirect ? <Component /> : <Navigate to={redirectTo} />;
 };
 
 export default PrivateRoute;

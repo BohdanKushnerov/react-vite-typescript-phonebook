@@ -27,7 +27,6 @@ const router = createBrowserRouter([
       },
       {
         path: AppPaths.LoginPath,
-        // element: <Login />,
         element: (
           <RestrictedRoute
             component={Login}
@@ -37,7 +36,6 @@ const router = createBrowserRouter([
       },
       {
         path: AppPaths.RegisterPath,
-        // element: <Register />,
         element: (
           <RestrictedRoute
             component={Register}
@@ -47,7 +45,6 @@ const router = createBrowserRouter([
       },
       {
         path: AppPaths.PhonebookPath,
-        // element: <Phonebook />,
         element: (
           <PrivateRoute component={Phonebook} redirectTo={AppPaths.LoginPath} />
         ),

@@ -87,7 +87,13 @@ const EditContactForm: FC<IEditContactFormProps> = ({
       }}
     >
       <Form sx={{ margin: 0 }} onSubmit={handleSubmit(onSubmit)}>
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1,
+          }}
+        >
           <TextField
             fullWidth
             {...register('name')}
@@ -107,7 +113,14 @@ const EditContactForm: FC<IEditContactFormProps> = ({
           />
         </Box>
 
-        <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 1,
+          }}
+        >
           <MainButton
             variant="contained"
             type="submit"
