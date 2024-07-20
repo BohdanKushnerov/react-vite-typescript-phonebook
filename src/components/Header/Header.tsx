@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { AuthNav, Nav } from '@components/Navigation';
 import UserMenu from '@components/UserMenu';
 
-import { getIsLoggedInStatus } from '@redux/auth/selectors';
+import { getToken } from '@redux/auth/selectors';
 
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -22,10 +22,10 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ position }) => {
-  const isLoggedIn = useSelector(getIsLoggedInStatus);
-
   const theme = useTheme();
   const colorMode = useContext(ColorMode.ColorModeContext);
+
+  const token = useSelector(getToken);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -33,7 +33,7 @@ const Header: FC<IHeaderProps> = ({ position }) => {
         <Toolbar component="nav">
           <Nav />
           <Toolbar sx={{ ml: 'auto' }}>
-            {isLoggedIn ? <UserMenu /> : <AuthNav />}
+            {token ? <UserMenu /> : <AuthNav />}
             <IconButton onClick={colorMode.toggleColorMode} color="inherit">
               {theme.palette.mode === 'dark' ? (
                 <Brightness7Icon />

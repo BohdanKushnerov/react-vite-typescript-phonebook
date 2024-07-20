@@ -1,17 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { UserMenuBtn } from './UserMenu.styled';
 
-import { logOut } from '@redux/auth/operations';
+import { authApi } from '@redux/auth/authApi';
+import { setLogout } from '@redux/auth/authSlice';
 import { getAuthName } from '@redux/auth/selectors';
 import type { AppDispatch } from '@redux/store';
 
-import { LocalStorageValues } from '@enums/localStorageValues';
-
 const UserMenu = () => {
+  const [logout] = authApi.useLogoutMutation();
   const dispatch: AppDispatch = useDispatch();
 
   const name = useSelector(getAuthName);
+
+  const handleClickLogout = async () => {
+    try {
+      await logout().unwrap();
+      dispatch(setLogout());
+      toast.info('See you soon =)');
+    } catch (error) {
+      console.log('logout', error);
+    }
+  };
 
   return (
     <div
@@ -26,14 +37,7 @@ const UserMenu = () => {
       <p style={{ textAlign: 'center' }}>
         Welcome, <b>{name}</b>
       </p>
-      <UserMenuBtn
-        type="button"
-        size="small"
-        onClick={() => {
-          localStorage.removeItem(LocalStorageValues.IsPhonebookPath);
-          dispatch(logOut());
-        }}
-      >
+      <UserMenuBtn type="button" size="small" onClick={handleClickLogout}>
         Logout
       </UserMenuBtn>
     </div>

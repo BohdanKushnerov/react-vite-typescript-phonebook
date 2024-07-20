@@ -1,12 +1,10 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import Modal from '@components/Modal';
+import EditContactForm from '../EditContact/EditContactForm';
 
-import { deleteContacts } from '@redux/contacts/operations';
-import { getContacts } from '@redux/contacts/selectors';
-import type { AppDispatch } from '@redux/store';
+import { contactsApi } from '@redux/contacts/contactsApi';
 
 import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -22,71 +20,84 @@ interface IContactProps {
 }
 
 const Contact: FC<IContactProps> = ({ name, number, id }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [deleteTrigger, { isLoading: isDeleting }] =
+    contactsApi.useDeleteContactsMutation();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const dispatch: AppDispatch = useDispatch();
-  const { isLoading } = useSelector(getContacts);
-
-  const toggleModal = () => {
-    setShowModal(prevState => !prevState);
+  const toggleIsEditing = () => {
+    setIsEditing(prevState => !prevState);
   };
 
-  const handleDelete = async (id: string) => {
-    setIsButtonDisabled(true);
-    await dispatch(deleteContacts({ id }));
-    setIsButtonDisabled(false);
+  const handleDeleteContact = async (id: string) => {
+    try {
+      const deleteItem = await deleteTrigger(id).unwrap();
+      toast.success(
+        <span>
+          Success delete - <b>{deleteItem.name}</b>
+        </span>
+      );
+    } catch (error) {
+      console.log('handleDeleteContact', handleDeleteContact);
+    }
   };
 
   return (
-    <ListItem
-      sx={{
-        display: 'flex',
-        gap: 1,
-        minWidth: 350,
-        maxWidth: 450,
-        border: '1px solid grey',
-        borderRadius: 2,
-        '& .MuiListItemText-primary': {
-          fontWeight: 'bold',
-        },
-      }}
-    >
-      <ListItemAvatar>
-        <Avatar />
-      </ListItemAvatar>
-      <ListItemText
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Typography variant="h6">{name}</Typography>
-        <p>{number}</p>
-      </ListItemText>
-      <Button
-        type="button"
-        variant="contained"
-        size="small"
-        disabled={isLoading && isButtonDisabled}
-        onClick={toggleModal}
-      >
-        Edit
-      </Button>
-      <Button
-        type="button"
-        variant="contained"
-        size="small"
-        disabled={isLoading && isButtonDisabled}
-        onClick={() => handleDelete(id)}
-      >
-        Delete
-      </Button>
-      {showModal && (
-        <Modal id={id} name={name} number={number} onClose={toggleModal} />
+    <>
+      {!isEditing ? (
+        <ListItem
+          sx={{
+            display: 'flex',
+            gap: 1,
+            minWidth: 350,
+            maxWidth: 450,
+            border: '1px solid grey',
+            borderRadius: 2,
+            '& .MuiListItemText-primary': {
+              fontWeight: 'bold',
+            },
+          }}
+        >
+          <ListItemAvatar>
+            <Avatar />
+          </ListItemAvatar>
+          <ListItemText
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Typography variant="h6">{name}</Typography>
+            <p>{number}</p>
+          </ListItemText>
+          <Button
+            type="button"
+            variant="contained"
+            size="small"
+            disabled={isDeleting}
+            onClick={toggleIsEditing}
+          >
+            Edit
+          </Button>
+          <Button
+            type="button"
+            variant="contained"
+            size="small"
+            disabled={isDeleting}
+            onClick={() => handleDeleteContact(id)}
+          >
+            {isDeleting ? 'Deleting' : 'Delete'}
+          </Button>
+        </ListItem>
+      ) : (
+        <EditContactForm
+          id={id}
+          name={name}
+          number={number}
+          onClose={toggleIsEditing}
+        />
       )}
-    </ListItem>
+    </>
   );
 };
 
